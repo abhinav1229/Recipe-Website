@@ -1,0 +1,38 @@
+.contactUs {
+  width: calc(100% - 210px);
+  height: 100vh;
+  margin-left: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactUs .inputContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactUs .inputContainer input,
+.contactUs .inputContainer textarea,
+.contactUs .inputContainer button {
+  width: 70%;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 6px 10px;
+  margin: 0.6rem;
+  outline: none;
+  border: none;
+  background-color: #262626;
+  color: #c8c8c5;
+  border-radius: 1px;
+}
+
+.contactUs .inputContainer button {
+  background-color: #00dcff;
+  color: black;
+  cursor: pointer;
+  transition: all 200ms linear;
+}

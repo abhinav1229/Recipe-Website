@@ -1,0 +1,34 @@
+.reviewCount {
+  display: flex;
+  margin: 20px 0;
+}
+
+.reviewCount button {
+  display: flex;
+  width: 60%;
+  background-color: #8080803d;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: grey;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.singleReviewContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 7px 0;
+}
+
+.singleReviewContainer .reviewUserName {
+  font-size: 1.3rem;
+}
+
+.singleReviewContainer .reviewDescription {
+  font-weight: 300;
+  color: #a9a9a9ad;
+}

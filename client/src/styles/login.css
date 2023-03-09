@@ -1,0 +1,113 @@
+.mainLoginContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.mainLoginContainer .left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.loginContainer h1 {
+  width: 50%;
+  text-align: left;
+  color: #c8c8c5;
+}
+
+.loginContainer input {
+  width: 50%;
+  font-size: 1.3rem;
+  padding: 6px 10px;
+  margin: 0.6rem;
+  outline: none;
+  border: none;
+  background-color: #262626;
+  color: #c8c8c5;
+  border-radius: 1px;
+}
+
+.mainLoginContainer .left .warningMessage {
+  color: coral;
+  font-size: 1.2rem;
+  background-color: cornsilk;
+  padding: 0 10px;
+  border-radius: 4px;
+  position: relative;
+  top: -60px;
+}
+
+.loginContainer .firstButton {
+  width: 25%;
+  outline: none;
+  border: none;
+  margin: 0.3rem;
+  font-size: 1.3rem;
+  padding: 4px 0;
+  font-weight: 600;
+  background-color: #00dcff;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.loginContainer .pageRouter {
+  width: 25%;
+}
+
+.loginContainer .pageRouter button {
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 1.3rem;
+  padding: 4px 0;
+  font-weight: 600;
+  background-color: #00dcff;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.loginContainer .forgotPassword {
+  width: 50%;
+  cursor: pointer;
+  transition: all 120ms linear;
+  margin-bottom: 10px;
+}
+
+.loginContainer .forgotPassword a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.loginContainer .forgotPassword a:hover {
+  color: #00e2ff;
+}
+
+.loginContainer button:hover {
+  background-color: #00b5d2;
+}
+
+.mainLoginContainer .right {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainLoginContainer .right img {
+  height: 100%;
+  width: 100%;
+  background: no-repeat;
+  background-size: 100%;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
