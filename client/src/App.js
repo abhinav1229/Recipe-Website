@@ -8,6 +8,7 @@ import Contact from "./routes/Contact";
 import Forgot from "./routes/Forgot";
 import AboutRecipe from "./routes/AboutRecipe";
 import AboutUser from "./routes/AboutUser";
+import EditUser from "./routes/EditUser";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/aboutuser/:user" element={<AboutUser />} />
           <Route path="/aboutrecipe/:id" element={<AboutRecipe />} />
+          <Route path="/aboutrecipe/edit/:user" element={<EditUser/>} />
         </Routes>
       </Router>
     </div>

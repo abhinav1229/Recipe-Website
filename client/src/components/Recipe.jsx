@@ -20,7 +20,7 @@ const Recipe = (props) => {
     }).catch((err) => {
       console.log(err);
     })
-  }, []);
+  }, [recipeImageId]);
 
   return (
     <div className="recipeContainer">

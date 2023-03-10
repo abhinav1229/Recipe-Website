@@ -3,6 +3,16 @@ import Recipe from "./Recipe";
 
 import "../styles/userInfo.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+
+import {faPencil} from "@fortawesome/free-solid-svg-icons"
+import { NavLink } from "react-router-dom";
+
 const UserInfo = ({ userData, allUserRecipes }) => {
   return (
     <>
@@ -17,6 +27,38 @@ const UserInfo = ({ userData, allUserRecipes }) => {
           <div className="right">
             <h1>{userData.fullName}</h1>
             <h3>{userData.userName}</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam totam voluptates saepe, quasi magnam, ut recusandae soluta amet culpa, quaerat dolorem nostrum veritatis. Nostrum consectetur suscipit nesciunt id, odio sequi?
+            </p>
+            <div className="socialMediaLinkContainer">
+              <a
+                href="http://google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  className="fa-2x icon-hover"
+                />
+              </a>
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  className="fa-2x icon-hover"
+                />
+              </a>
+
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  className="fa-2x icon-hover"
+                />
+              </a>
+            </div>
+            <NavLink className={"editLink"} to={"/aboutrecipe/edit/" + userData.userName }>Edit Profile <FontAwesomeIcon
+                  icon={faPencil}
+                  
+                /></NavLink>
           </div>
         </div>
         <div className="bottomSection">

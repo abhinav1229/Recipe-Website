@@ -20,11 +20,60 @@
   border-radius: 50%;
 }
 
+
 .UserInfo .topSection .left img {
   width: 250px;
   height: 250px;
   border-radius: 50%;
 }
+
+.UserInfo .topSection .right {
+  width: 50%;
+}
+
+.UserInfo .topSection .right p{
+  margin: 10px 0;
+}
+
+.socialMediaLinkContainer{
+  display: flex;
+  width: 130px;
+  justify-content: space-between;
+}
+
+.socialMediaLinkContainer a{
+  text-decoration: none;
+  background-color: transparent;
+  color: navajowhite;
+}
+
+.icon-hover{
+  transition: all 200ms linear;
+  cursor: pointer;
+}
+
+.icon-hover:hover{
+  color: #ffc774;
+}
+
+.UserInfo .topSection .right .editLink{
+  display: inline-block;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  background-color: #80808052;
+  color: #ffffff9e;
+  padding: 1px 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.UserInfo .topSection .right .editLink:hover{
+  background-color: rgb(66, 66, 66);
+}
+
 
 .UserInfo .bottomSection {
   display: flex;
@@ -54,3 +103,4 @@
   flex-wrap: wrap;
   margin-top: 20px;
 }
+
