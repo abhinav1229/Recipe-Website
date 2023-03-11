@@ -25,7 +25,7 @@ const Login = () => {
         if (response.data === "invalid") {
           setErrorMessage("Incorrect Username/Password");
           setLoading(false);
-        } else { 
+        } else {
           localStorage.setItem(
             "userInfo",
             JSON.stringify({
