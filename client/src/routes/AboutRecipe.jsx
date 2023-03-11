@@ -37,8 +37,7 @@ const AboutRecipe = () => {
       ) : (
         <RecipeInfo
           key={recipe._id}
-          fullName={recipe.fullName}
-          userName={recipe.userName}
+          userId={recipe.userId}
           recipeName={recipe.recipeName}
           recipeIngradients={recipe.recipeIngradients}
           recipeDescription={recipe.recipeDescription}

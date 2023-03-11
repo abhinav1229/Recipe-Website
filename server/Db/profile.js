@@ -5,15 +5,16 @@ const ProfileSchema = new mongoose.Schema({
     type: String, 
     required: true, 
   }, 
+  fullName: {
+    type: String, 
+    required: true,
+  },
   userBio: {
     type: String, 
   }, 
   userSocialLinks: {
     type: Array,
   }, 
-  userProfileImageId: {
-    tyype: String,
-  }
 });
 
 const Profile = mongoose.model("profiles", ProfileSchema);

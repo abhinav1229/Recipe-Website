@@ -11,24 +11,36 @@ const AboutUser = () => {
 
   const [userData, setUserData] = useState({});
   const [allUserRecipes, setAllUserRecipes] = useState([]);
+  let localData = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
     setLoading(true);
+
     Axios.post(`${BASE_URL}/user/userInfo`, {
       userName: user,
     })
-      .then((userResponse) => {
-        Axios.post(`${BASE_URL}/recipe/recipeFindByUserName`, {
-          userName: user,
-        }).then((recipeResponse) => {
-          setUserData(userResponse.data[0]);
-          setAllUserRecipes(recipeResponse.data);
-          setLoading(false);
-        });
+      .then((userIdResponse) => {
+        Axios.get(`${BASE_URL}/profile/getProfile`, {
+          params: {
+            userName: user,
+          },
+        })
+          .then((userResponse) => {
+            Axios.post(`${BASE_URL}/recipe/recipeFindByUserId`, {
+              userId: userIdResponse.data[0]._id,
+            }).then((recipeResponse) => {
+              setUserData(userResponse.data[0]);
+              setAllUserRecipes(recipeResponse.data);
+              setLoading(false);
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            setLoading(false);
+          });
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
       });
   }, [user]);
 

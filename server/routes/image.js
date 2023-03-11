@@ -5,6 +5,7 @@ const multer = require("multer");
 const fs = require("fs");
 
 const ImageModel = require("../Db/recipeimage");
+const ProfileImageModel = require("../Db/profileimage");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -19,7 +20,6 @@ const upload = multer({ storage: storage });
 
 router.post("/imageUpload", upload.single("testImage"), (req, res) => {
   const saveImage = new ImageModel({
-    name: req.body.name,
     img: {
       data: fs.readFileSync("uploads/" + req.file.filename),
       contentType: "image/png",
@@ -35,12 +35,30 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
       console.log(err, "error has occured");
       res.send("error to save");
     });
-  // res.send(saveImage, "image is saved");
 });
 
-router.get("/default", (req, res) => {
-  res.send("inside image router");
+
+
+router.post("/profileImageUpload", upload.single("profileImage"), (req, res) => {
+  const saveImage = new ProfileImageModel({
+    userName: req.body.userName,
+    img: {
+      data: fs.readFileSync("uploads/" + req.file.filename),
+      contentType: "image/png",
+    },
+  });
+
+  saveImage
+    .save()
+    .then((response) => {
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err, "error has occured");
+      res.send("error to save");
+    });
 });
+
 
 router.post("/getImage", async (req, res) => {
   let recipeImageId =  req.body.recipeImageId;

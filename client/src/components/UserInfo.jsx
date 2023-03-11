@@ -10,10 +10,12 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-import {faPencil} from "@fortawesome/free-solid-svg-icons"
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 
 const UserInfo = ({ userData, allUserRecipes }) => {
+  let localData = JSON.parse(localStorage.getItem("userInfo"));
+
   return (
     <>
       <div className="UserInfo">
@@ -27,13 +29,15 @@ const UserInfo = ({ userData, allUserRecipes }) => {
           <div className="right">
             <h1>{userData.fullName}</h1>
             <h3>{userData.userName}</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam totam voluptates saepe, quasi magnam, ut recusandae soluta amet culpa, quaerat dolorem nostrum veritatis. Nostrum consectetur suscipit nesciunt id, odio sequi?
-            </p>
+            <p>{userData.userBio}</p>
             <div className="socialMediaLinkContainer">
               <a
-                href="http://google.com"
-                target="_blank"
+                href={
+                  userData.userSocialLinks[0]
+                    ? userData.userSocialLinks[0]
+                    : "#"
+                }
+                target={userData.userSocialLinks[0] ? "_black" : ""}
                 rel="noopener noreferrer"
               >
                 <FontAwesomeIcon
@@ -41,24 +45,46 @@ const UserInfo = ({ userData, allUserRecipes }) => {
                   className="fa-2x icon-hover"
                 />
               </a>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
+              <a
+                href={
+                  userData.userSocialLinks[1]
+                    ? userData.userSocialLinks[1]
+                    : "#"
+                }
+                target={userData.userSocialLinks[1] ? "_black" : ""}
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon
                   icon={faInstagram}
                   className="fa-2x icon-hover"
                 />
               </a>
 
-              <a href="http://" target="_blank" rel="noopener noreferrer">
+              <a
+                href={
+                  userData.userSocialLinks[2]
+                    ? userData.userSocialLinks[2]
+                    : "#"
+                }
+                target={userData.userSocialLinks[2] ? "_black" : ""}
+                rel="noopener noreferrer"
+              >
                 <FontAwesomeIcon
                   icon={faTwitter}
                   className="fa-2x icon-hover"
                 />
               </a>
             </div>
-            <NavLink className={"editLink"} to={"/aboutrecipe/edit/" + userData.userName }>Edit Profile <FontAwesomeIcon
-                  icon={faPencil}
-                  
-                /></NavLink>
+            {userData.userName === localData.userName ? (
+              <NavLink
+                className={"editLink"}
+                to={"/aboutrecipe/edit/" + userData.userName}
+              >
+                Edit Profile <FontAwesomeIcon icon={faPencil} />
+              </NavLink>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="bottomSection">

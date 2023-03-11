@@ -19,14 +19,14 @@ const NewRecipe = () => {
     if (imageId) {
       setLoading(true);
       let user = JSON.parse(localStorage.getItem("userInfo"));
+
       Axios.post(`${BASE_URL}/recipe/addNewRecipe`, {
-        userName: user.userName,
-        fullName: user.fullName,
+        userId: user.userId,
         recipeName: recipeName,
         recipeIngradients: recipeIngradients,
         recipeDescription: recipeDescription,
         recipeNote: recipeNote,
-        recipeImageId: imageId
+        recipeImageId: imageId,
       })
         .then((response) => {
           console.log("saved successfully");
@@ -36,7 +36,7 @@ const NewRecipe = () => {
           console.log("not saved due to: ", err);
           setLoading(false);
         });
-    }else{
+    } else {
       alert("Please add the image");
     }
   }
@@ -88,8 +88,18 @@ const NewRecipe = () => {
             ></textarea>
           </div>
           <div className="right">
-            <div className={imageId ? "fileContainer fileUploaded" : "fileContainer"}>
-              <div>{imageId && !imageUploading ? "Image Uploaded!" : imageUploading ? "Uploading..." : "Add Recipe Image"}</div>
+            <div
+              className={
+                imageId ? "fileContainer fileUploaded" : "fileContainer"
+              }
+            >
+              <div>
+                {imageId && !imageUploading
+                  ? "Image Uploaded!"
+                  : imageUploading
+                  ? "Uploading..."
+                  : "Add Recipe Image"}
+              </div>
               <input type="file" name="file" onChange={onSelectFile} />
               <i>(.jpg, .jpeg, or .png)</i>
             </div>

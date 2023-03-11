@@ -4,6 +4,7 @@
   width: 200px;
   height: 100vh;
   position: fixed;
+  border-right: 0.5px solid #80808033;
 }
 
 .navbar .navPageRoutes {

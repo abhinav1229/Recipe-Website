@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/recipeUser.css";
+import Axios from "axios"
+import { BASE_URL } from "../helper/ref";
 
-const RecipeUser = ({ fullName, userName, recipeSaveTime }) => {
+const RecipeUser = ({ userId, recipeSaveTime }) => {
   const date = new Date(recipeSaveTime);
   const month = date.toLocaleString("default", { month: "short" });
 
-  console.log(date);
+  const [userName, setUserName] = useState("")
+  const [fullName, setFullName] = useState("");
+
+  useEffect(() => {
+    Axios.post((`${BASE_URL}/user/userInfoById`), {
+      userId: userId
+    }).then((response) => {
+      console.log("USER: ", response);
+      setUserName(response.data[0].userName)
+      setFullName(response.data[0].fullName)
+    }).catch((err) => {
+      console.log(err);
+    })
+  }, []);
 
   return (
     <NavLink to={"/aboutuser/" + userName}>

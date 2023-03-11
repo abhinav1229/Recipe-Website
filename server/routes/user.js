@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const UserModel = require("../Db/user");
+const ProfileModel = require("../Db/profile");
 
 router.post("/register", async (req, res) => {
   const fullName = req.body.fullName;
@@ -18,9 +19,17 @@ router.post("/register", async (req, res) => {
     userOtp: "",
   });
 
+  const profile = new ProfileModel({
+    userName: userName,
+    fullName: fullName,
+    userBio: "",
+    userSocialLinks: ["", "", ""],
+  });
+
   try {
-    await user.save();
-    res.send("user saved...");
+    let userSaveResult = await user.save();
+    await profile.save();
+    res.send(userSaveResult._id);
   } catch (e) {
     console.log("Error from database save...");
   }
@@ -63,8 +72,16 @@ router.post("/loginValidate", async (req, res) => {
 
 router.post("/userInfo", async (req, res) => {
   let userName = req.body.userName;
-  console.log(userName);
   UserModel.find({ userName: userName }, (err, result) => {
+    if (err) res.send("ERROR");
+    else res.send(result);
+  });
+});
+
+router.post("/userInfoById", async (req, res) => {
+  let userId = req.body.userId;
+  console.log(userId);
+  UserModel.find({ _id: userId }, (err, result) => {
     if (err) res.send("ERROR");
     else res.send(result);
   });

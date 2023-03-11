@@ -5,26 +5,54 @@ const multer = require("multer");
 const fs = require("fs");
 
 const ProfileModel = require("../Db/profile");
+const UserModel = require("../Db/user");
+// const RecipeModel = require("../Db/recipe");
 
-router.post("/updateProfile", async (req, res) => {
-    const userName = req.body.userNmae;
-    const userBio = req.body.bio;
-    const userSocialLinks = req.body.socialLinks;
-    const userProfileImageId = req.body.imageId;
+router.put("/updateProfile", async (req, res) => {
+  const userName = req.body.userName;
+  const newUserName = req.body.newUserName;
+  const fullName = req.body.fullName;
+  const userBio = req.body.userBio;
+  const facebookURL = req.body.facebookURL;
+  const instagramURL = req.body.instagramURL;
+  const twitterURL = req.body.twitterURL;
 
 
-    const profile = new ProfileModel({
-        userName: userName, 
-        userBio: userBio, 
-        userSocialLinks: userSocialLinks,
-        userProfileImageId: userProfileImageId, 
-    });
+  try {
+    let profileData = await ProfileModel.find({
+        userName: userName 
+    })
+    profileData[0].userName = newUserName;
+    profileData[0].fullName = fullName;
+    profileData[0].userBio = userBio;
+    profileData[0].userSocialLinks = [facebookURL, instagramURL, twitterURL];
 
-    try{
-        await profile.save();
-    } catch(err) {
-        console.log(err);
-    }
-})
+    // updating user
+    let userData = await UserModel.find({
+        userName: userName 
+    })
+
+    userData[0].userName = newUserName;
+    userData[0].fullName = fullName;
+
+    // updating images username
+    // let recipeData = await RecipeModel.find({
+    //     userName: userName
+    // })
+    
+    userData[0].save();
+    profileData[0].save();
+    res.send("updated successfully");
+  } catch (err) { 
+    console.log(err);
+  }
+});
+
+router.get("/getProfile", (req, res) => {
+  ProfileModel.find({ userName: req.query.userName }, (err, result) => {
+    if (err) res.send("ERR");
+    res.send(result);
+  });
+});
 
 module.exports = router;

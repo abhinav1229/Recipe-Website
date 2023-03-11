@@ -9,8 +9,7 @@ import RecipeRateResponse from "./RecipeRateResponse";
 
 const RecipeInfo = (props) => {
   const {
-    fullName,
-    userName,
+    userId,
     recipeName,
     recipeIngradients,
     recipeDescription,
@@ -47,8 +46,7 @@ const RecipeInfo = (props) => {
             }
           </div>
           <RecipeUser
-            fullName={fullName}
-            userName={userName}
+            userId = {userId}
             recipeSaveTime={recipeSaveTime}
           />
           <RecipeRating recipeId={recipeId} />

@@ -5,8 +5,7 @@ const mongoose = require("mongoose");
 const RecipeModel = require("../Db/newRecipe");
 
 router.post("/addNewRecipe", async (req, res) => {
-  let userName = req.body.userName;
-  let fullName = req.body.fullName;
+  let userId = req.body.userId;
   let recipeName = req.body.recipeName;
   let recipeIngradients = req.body.recipeIngradients;
   let recipeDescription = req.body.recipeDescription;
@@ -18,8 +17,7 @@ router.post("/addNewRecipe", async (req, res) => {
 
 
   const recipe = new RecipeModel({
-    userName: userName,
-    fullName: fullName,
+    userId: userId,
     recipeName: recipeName,
     recipeIngradients: recipeIngradients,
     recipeDescription: recipeDescription,
@@ -58,10 +56,10 @@ router.post("/recipeFindById", (req, res) => {
   });
 });
 
-router.post("/recipeFindByUserName", (req, res) => {
-  let userName = req.body.userName;
+router.post("/recipeFindByUserId", (req, res) => {
+  let userId = req.body.userId;
 
-  RecipeModel.find({ userName: userName }, (err, result) => {
+  RecipeModel.find({ userId: userId }, (err, result) => {
     res.send(result);
   });
 });

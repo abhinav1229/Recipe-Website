@@ -37,11 +37,13 @@ const Register = () => {
               userPassword: userPassword,
             })
               .then((dataSaveResponse) => {
+                console.log(dataSaveResponse);
                 localStorage.setItem(
                   "userInfo",
                   JSON.stringify({
                     userName: userName,
-                    userLogin: true,
+                    fullName: fullName, 
+                    userId: dataSaveResponse.data,
                   })
                 );
 

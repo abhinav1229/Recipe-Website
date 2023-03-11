@@ -54,3 +54,13 @@
     color: black;
     font-weight: 700;
 }
+
+.EditUser .formContainer .formGroup p.userNameNotExist{
+    /* background-color: #006437; */
+    color: #3cf3a0;
+}
+
+.EditUser .formContainer .formGroup p.userNameExist{
+    /* background-color: #ff7171; */
+    color: #ff7171;
+}
