@@ -13,9 +13,6 @@ router.post("/addNewRecipe", async (req, res) => {
   let recipeImageId = req.body.recipeImageId;
   let recipeSaveTime = new Date().toJSON();
 
-  console.log("backend: ", recipeImageId);
-
-
   const recipe = new RecipeModel({
     userId: userId,
     recipeName: recipeName,
@@ -30,7 +27,7 @@ router.post("/addNewRecipe", async (req, res) => {
     await recipe.save();
     res.send("user saved...");
   } catch (e) {
-    console.log("Error from database save...");
+    console.log(e);
   }
 });
 

@@ -62,7 +62,7 @@ router.post("/loginValidate", async (req, res) => {
     { userName: userName, userPassword: userPassword },
     (err, result) => {
       if (result.length !== 0) {
-        res.send("OK");
+        res.status(200).send(result);
       } else {
         res.send("invalid");
       }
