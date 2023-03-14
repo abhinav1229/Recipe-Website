@@ -30,7 +30,8 @@ const Login = () => {
             "userInfo",
             JSON.stringify({
               userName: userName,
-              userLogin: true,
+              fullName: response.data[0].fullName, 
+              userId: response.data[0]._id,
             })
           );
           navigate("/");
