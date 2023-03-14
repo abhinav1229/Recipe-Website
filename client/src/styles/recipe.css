@@ -12,9 +12,7 @@
   transition: all 200ms linear;
 }
 
-.recipe:hover {
-  background-color: #404040;
-}
+
 
 .recipe .imgContainer {
   width: 100%;
@@ -64,4 +62,29 @@
   color: white;
   cursor: pointer;
   transition: all 200ms linear;
+}
+
+.recipeHoverButtons{
+  display: none;
+  flex-direction: row;
+  width: 200px;
+  position: relative;
+  bottom: 30%;
+  margin: auto;
+  font-size: 25px;
+  justify-content: space-evenly;
+}
+
+.recipe:hover {
+  background-color: #404040;
+}
+
+.recipeHoverButtons a{
+  color: white;
+  padding: none;
+}
+
+.recipe:hover + .recipeHoverButtons, .recipeHoverButtons:hover{
+  display: flex;
+  text-decoration: none;
 }
