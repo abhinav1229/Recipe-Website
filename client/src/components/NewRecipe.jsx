@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "../styles/newrecipe.css";
 import { BASE_URL } from "../helper/ref.js";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const NewRecipe = () => {
+const NewRecipe = (props) => {
+
+  const navigate = useNavigate();
+
+  const [isUpdate, setIsUpdate] = useState(false);
   const [recipeName, setRecipeName] = useState("");
   const [recipeIngradients, setRecipeIngradients] = useState("");
   const [recipeDescription, setRecipeDescription] = useState("");
@@ -14,28 +19,60 @@ const NewRecipe = () => {
   const [imageId, setImageId] = useState("");
   const [imageUploading, setImageUploading] = useState(false);
 
+  if (!isUpdate && Object.keys(props).length) {
+    setIsUpdate(true);
+    setRecipeName(props.data.recipeName);
+    setRecipeIngradients(props.data.recipeIngradients);
+    setRecipeDescription(props.data.recipeDescription);
+    setRecipeNote(props.data.recipeNote);
+    setImageId(props.data.recipeImageId);
+    setImageUploading(true);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (imageId) {
       setLoading(true);
       let user = JSON.parse(localStorage.getItem("userInfo"));
 
-      Axios.post(`${BASE_URL}/recipe/addNewRecipe`, {
-        userId: user.userId,
-        recipeName: recipeName,
-        recipeIngradients: recipeIngradients,
-        recipeDescription: recipeDescription,
-        recipeNote: recipeNote,
-        recipeImageId: imageId,
-      })
-        .then((response) => {
-          console.log("saved successfully");
-          setLoading(false);
+      if (isUpdate) {
+        Axios.put(`${BASE_URL}/recipe/updateRecipe`, {
+          userId: user.userId,
+          recipeId: props.data._id,
+          recipeName: recipeName,
+          recipeIngradients: recipeIngradients,
+          recipeDescription: recipeDescription,
+          recipeNote: recipeNote,
+          recipeImageId: imageId,
         })
-        .catch((err) => {
-          console.log("not saved due to: ", err);
-          setLoading(false);
-        });
+          .then((response) => {
+            console.log("updated successfully");
+            setLoading(false);
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log("not updated due to: ", err);
+            setLoading(false);
+          });
+      } else {
+        Axios.post(`${BASE_URL}/recipe/addNewRecipe`, {
+          userId: user.userId,
+          recipeName: recipeName,
+          recipeIngradients: recipeIngradients,
+          recipeDescription: recipeDescription,
+          recipeNote: recipeNote,
+          recipeImageId: imageId,
+        })
+          .then((response) => {
+            console.log("saved successfully");
+            setLoading(false);
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log("not saved due to: ", err);
+            setLoading(false);
+          });
+      }
     } else {
       alert("Please add the image");
     }
@@ -96,7 +133,9 @@ const NewRecipe = () => {
               <div>
                 {imageId && !imageUploading
                   ? "Image Uploaded!"
-                  : imageUploading
+                  : imageUploading && isUpdate
+                  ? "Add New Image"
+                  : imageUploading && !isUpdate
                   ? "Uploading..."
                   : "Add Recipe Image"}
               </div>

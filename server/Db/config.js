@@ -5,6 +5,7 @@ mongoose.connect(
   "mongodb+srv://abhinav1229:abhinav1229@abhinav.pkmqgjl.mongodb.net/recipeapp?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
+    useUnifiedTopology: true 
   }
 );
 

@@ -9,6 +9,7 @@ import Forgot from "./routes/Forgot";
 import AboutRecipe from "./routes/AboutRecipe";
 import AboutUser from "./routes/AboutUser";
 import EditUser from "./routes/EditUser";
+import EditRecipe from "./routes/EditRecipe";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/aboutuser/:user" element={<AboutUser />} />
           <Route path="/aboutrecipe/:id" element={<AboutRecipe />} />
           <Route path="/aboutrecipe/edit/:user" element={<EditUser/>} />
+          <Route path="/edit/:recipeId" element={<EditRecipe/>}/>
         </Routes>
       </Router>
     </div>

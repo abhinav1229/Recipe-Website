@@ -48,15 +48,6 @@ const Recipe = (props) => {
             </p>
           </div>
         </div>
-        <div className="recipeHoverButtons">
-          <NavLink to={"/aboutrecipe/" + recipeId}>
-            {" "}
-            <FontAwesomeIcon icon={faPencil} />
-          </NavLink>
-          <NavLink to={"/aboutrecipe/" + recipeId}>
-            <FontAwesomeIcon icon={faTrash} />
-          </NavLink>
-        </div>
       </NavLink>
     </div>
   );

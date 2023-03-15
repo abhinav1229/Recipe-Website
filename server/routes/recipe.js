@@ -31,6 +31,32 @@ router.post("/addNewRecipe", async (req, res) => {
   }
 });
 
+router.put("/updateRecipe", async (req, res) => {
+  let userId = req.body.userId;
+  let recipeName = req.body.recipeName;
+  let recipeIngradients = req.body.recipeIngradients;
+  let recipeDescription = req.body.recipeDescription;
+  let recipeNote = req.body.recipeNote;
+  let recipeImageId = req.body.recipeImageId;
+  let recipeId = req.body.recipeId;
+  let recipeSaveTime = new Date().toJSON();
+
+  RecipeModel.find({_id: recipeId}, (err, result) => {
+    if(err) res.send(err);
+    console.log(result[0]);
+    result[0].recipeName = recipeName;
+    result[0].recipeIngradients = recipeIngradients;
+    result[0].recipeDescription = recipeDescription;
+    result[0].recipeNote = recipeNote;
+    result[0].recipeImageId = recipeImageId;
+    result[0].recipeSaveTime = recipeSaveTime;
+    result[0].save();
+    res.send("OK");
+  })
+
+});
+
+
 router.get("/allRecipe", (req, res) => {
   RecipeModel.find({}, (err, result) => {
     res.send(result);
