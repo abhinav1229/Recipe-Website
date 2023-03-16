@@ -41,8 +41,8 @@ router.put("/updateRecipe", async (req, res) => {
   let recipeId = req.body.recipeId;
   let recipeSaveTime = new Date().toJSON();
 
-  RecipeModel.find({_id: recipeId}, (err, result) => {
-    if(err) res.send(err);
+  RecipeModel.find({ _id: recipeId }, (err, result) => {
+    if (err) res.send(err);
     console.log(result[0]);
     result[0].recipeName = recipeName;
     result[0].recipeIngradients = recipeIngradients;
@@ -52,10 +52,8 @@ router.put("/updateRecipe", async (req, res) => {
     result[0].recipeSaveTime = recipeSaveTime;
     result[0].save();
     res.send("OK");
-  })
-
+  });
 });
-
 
 router.get("/allRecipe", (req, res) => {
   RecipeModel.find({}, (err, result) => {
@@ -83,6 +81,15 @@ router.post("/recipeFindByUserId", (req, res) => {
   let userId = req.body.userId;
 
   RecipeModel.find({ userId: userId }, (err, result) => {
+    res.send(result);
+  });
+});
+
+router.delete("/delete/:id", (req, res) => {
+  let recipeId = req.params.id;
+
+  RecipeModel.findOneAndDelete({ _id: recipeId }, function (err, result) {
+    if (err) console.log(err);
     res.send(result);
   });
 });
