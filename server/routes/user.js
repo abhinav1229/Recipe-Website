@@ -42,14 +42,17 @@ router.post("/registerValidate", async (req, res) => {
   UserModel.find({ userName: userName }, (err, result) => {
     if (result.length === 0) {
       UserModel.find({ userEmail: userEmail }, (err, result) => {
+
+        if(err) res.status(500).send("error");
+
         if (result.length === 0) {
-          res.send("OK");
+          res.status(200).send("valid");
         } else {
-          res.send("email");
+          res.status(200).send("email");
         }
       });
     } else {
-      res.send("username");
+      res.status(200).send("username");
     }
   });
 });

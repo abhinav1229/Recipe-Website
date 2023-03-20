@@ -24,10 +24,10 @@ const Register = () => {
       })
         .then((response) => {
           if (response.data === "username") {
-            setErrorMessage("This username already exist.");
+            setErrorMessage("This username already exists.");
             setLoading(false);
           } else if (response.data === "email") {
-            setErrorMessage("This Email is already used.");
+            setErrorMessage("This email is already used.");
             setLoading(false);
           } else {
             Axios.post(`${BASE_URL}/user/register`, {
