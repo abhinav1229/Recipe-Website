@@ -3,13 +3,14 @@ import Axios from "axios";
 import "../styles/user.css";
 import { BASE_URL } from "../helper/ref.js";
 import { NavLink } from "react-router-dom";
+import Profile from "../helper/profile.png"
 
 const User = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
-  // const [loading, setLoading] = useState(true);
+  const [imageInfo, setImageInfo] = useState({});
+
   useEffect(() => {
-    // setLoading(true);
     let user = JSON.parse(localStorage.getItem("userInfo"));
     if (!user.fullName) {
       Axios.post(`${BASE_URL}/user/userInfo`, {
@@ -22,7 +23,6 @@ const User = () => {
             "userInfo",
             JSON.stringify({ ...user, fullName: fullName })
           );
-          // setLoading(false);
         })
         .catch((err) => {
           console.log("Error hai: ", err);
@@ -33,6 +33,28 @@ const User = () => {
     }
   }, [fullName]);
 
+  let localData = JSON.parse(localStorage.getItem("userInfo"));
+  useEffect(() => {
+    Axios.get(`${BASE_URL}/image/profileImage`, {
+      params: {
+        userName: localData.userName,
+      },
+    })
+      .then((response) => {
+        if (response.data[0]) {
+          const base64String = btoa(
+            String.fromCharCode(
+              ...new Uint8Array(response.data[0].img.data.data)
+            )
+          );
+          setImageInfo(base64String);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [localData.userName]);
+
   return (
     <div className="userProfile">
       {/* {loading ? (
@@ -42,10 +64,17 @@ const User = () => {
       ) : ( */}
       <>
         <div className="imageContainer">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OOjs_UI_icon_userAvatar-progressive.svg/1200px-OOjs_UI_icon_userAvatar-progressive.svg.png"
-            alt="user"
-          />
+          {Object.keys(imageInfo).length !== 0 ? (
+            <img
+              src={`data:image/png;base64,${imageInfo}`}
+              alt={localData.userName}
+            />
+          ) : (
+            <img
+              src={Profile}
+              alt={localData.userName}
+            />
+          )}
         </div>
         <div className="userDataContainer">
           <div className="user"> {fullName.length ? fullName : "..."} </div>

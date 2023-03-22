@@ -37,7 +37,6 @@ const Register = () => {
               userPassword: userPassword,
             })
               .then((dataSaveResponse) => {
-                console.log(dataSaveResponse);
                 localStorage.setItem(
                   "userInfo",
                   JSON.stringify({

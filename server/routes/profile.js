@@ -16,16 +16,17 @@ router.put("/updateProfile", async (req, res) => {
   const facebookURL = req.body.facebookURL;
   const instagramURL = req.body.instagramURL;
   const twitterURL = req.body.twitterURL;
-
+  const profileImageId = req.body.profileImageId;
 
   try {
     let profileData = await ProfileModel.find({
-        userName: userName 
+      userName: userName 
     })
     profileData[0].userName = newUserName;
     profileData[0].fullName = fullName;
     profileData[0].userBio = userBio;
     profileData[0].userSocialLinks = [facebookURL, instagramURL, twitterURL];
+    profileData[0].profileImageId = profileImageId;
 
     // updating user
     let userData = await UserModel.find({
@@ -34,12 +35,6 @@ router.put("/updateProfile", async (req, res) => {
 
     userData[0].userName = newUserName;
     userData[0].fullName = fullName;
-
-    // updating images username
-    // let recipeData = await RecipeModel.find({
-    //     userName: userName
-    // })
-    
     userData[0].save();
     profileData[0].save();
     res.send("updated successfully");

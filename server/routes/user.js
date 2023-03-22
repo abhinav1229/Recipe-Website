@@ -24,6 +24,7 @@ router.post("/register", async (req, res) => {
     fullName: fullName,
     userBio: "",
     userSocialLinks: ["", "", ""],
+    profileImageId: "",
   });
 
   try {

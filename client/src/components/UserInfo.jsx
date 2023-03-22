@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
-
+import { BASE_URL } from "../helper/ref";
+import Axios from "axios";
+import Profile from "../helper/profile.png"
 import "../styles/userInfo.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,15 +18,42 @@ import { NavLink } from "react-router-dom";
 const UserInfo = ({ userData, allUserRecipes }) => {
   let localData = JSON.parse(localStorage.getItem("userInfo"));
 
+  const [imageInfo, setImageInfo] = useState({});
+
+  useEffect(() => {
+    Axios.get(`${BASE_URL}/image/profileImage`, {
+      params: {
+        userName: localData.userName,
+      },
+    })
+      .then((response) => {
+        if (response.data[0]) {
+          const base64String = btoa(
+            String.fromCharCode(
+              ...new Uint8Array(response.data[0].img.data.data)
+            )
+          );
+          setImageInfo(base64String);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <div className="UserInfo">
         <div className="topSection">
           <div className="left">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OOjs_UI_icon_userAvatar-progressive.svg/1200px-OOjs_UI_icon_userAvatar-progressive.svg.png"
-              alt="img"
-            />
+            {Object.keys(imageInfo).length !== 0 ? (
+              <img
+                src={`data:image/png;base64,${imageInfo}`}
+                alt={localData.userName}
+              />
+            ) : (
+              <img src={Profile} alt={localData.userName} />
+            )}
           </div>
           <div className="right">
             <h1>{userData.fullName}</h1>

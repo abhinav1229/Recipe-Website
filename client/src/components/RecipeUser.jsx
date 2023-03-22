@@ -8,16 +8,28 @@ const RecipeUser = ({ userId, recipeSaveTime }) => {
   const date = new Date(recipeSaveTime);
   const month = date.toLocaleString("default", { month: "short" });
 
-  const [userName, setUserName] = useState("")
+  const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
+  const [imageInfo, setImageInfo] = useState({});
 
   useEffect(() => {
-    Axios.post((`${BASE_URL}/user/userInfoById`), {
+    Axios.post(`${BASE_URL}/user/userInfoById`, {
       userId: userId
     }).then((response) => {
-      console.log("USER: ", response);
       setUserName(response.data[0].userName)
       setFullName(response.data[0].fullName)
+      Axios.get(`${BASE_URL}/image/profileImage`, {
+        params: {
+          userName: response.data[0].userName,
+        }
+      }).then((response) => {
+        const base64String = btoa(
+          String.fromCharCode(...new Uint8Array(response.data[0].img.data.data))
+        );
+        setImageInfo(base64String);
+      }).catch((err) => {
+        console.log(err);
+      })
     }).catch((err) => {
       console.log(err);
     })
@@ -27,10 +39,12 @@ const RecipeUser = ({ userId, recipeSaveTime }) => {
     <NavLink to={"/aboutuser/" + userName}>
       <div className="userRecipeProfile">
         <div className="imageContainer">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/OOjs_UI_icon_userAvatar-progressive.svg/1200px-OOjs_UI_icon_userAvatar-progressive.svg.png"
-            alt="user"
-          />
+          {Object.keys(imageInfo).length !== 0 && (
+              <img
+                src={`data:image/png;base64,${imageInfo}`}
+                alt={userName}
+              />
+            )}
         </div>
         <div className="userDataContainer">
           <div className="user"> {fullName} </div>

@@ -15,6 +15,9 @@ const ProfileSchema = new mongoose.Schema({
   userSocialLinks: {
     type: Array,
   }, 
+  profileImageId: {
+    type: String,
+  },
 });
 
 const Profile = mongoose.model("profiles", ProfileSchema);

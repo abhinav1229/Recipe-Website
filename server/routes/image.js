@@ -30,7 +30,6 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
   saveImage
     .save()
     .then((response) => {
-
       // this code will delete the file which you have uploaded from the server/uploads folder.
       // but do upload on the database.
       fs.unlink("uploads/" + fileName, (err) => {
@@ -51,23 +50,41 @@ router.post(
   "/profileImageUpload",
   upload.single("profileImage"),
   (req, res) => {
-    const saveImage = new ProfileImageModel({
-      userName: req.body.userName,
-      img: {
-        data: fs.readFileSync("uploads/" + req.file.filename),
-        contentType: "image/png",
-      },
-    });
+    ProfileImageModel.find({ userName: req.body.userName }, (err, result) => {
+      if (err) res.send("ERROR");
 
-    saveImage
-      .save()
-      .then((response) => {
-        res.send(response);
-      })
-      .catch((err) => {
-        console.log(err, "error has occured");
-        res.send("error to save");
-      });
+      if (result.length) {
+          result[0].img = {
+            data: fs.readFileSync("uploads/" + req.file.filename),
+            contentType: "image/png",
+          };
+          result[0].save().then((response) => {
+            res.send(response);
+          })
+          .catch((err) => {
+            console.log(err, "error has occured");
+            res.send("error to save");
+          });
+      } else {
+        const saveImage = new ProfileImageModel({
+          userName: req.body.userName,
+          img: {
+            data: fs.readFileSync("uploads/" + req.file.filename),
+            contentType: "image/png",
+          },
+        });
+
+        saveImage
+          .save()
+          .then((response) => {
+            res.send(response);
+          })
+          .catch((err) => {
+            console.log(err, "error has occured");
+            res.send("error to save");
+          });
+      }
+    });
   }
 );
 
@@ -82,6 +99,37 @@ router.post("/getImage", async (req, res) => {
       res.send(result);
     }
   );
+});
+
+router.get("/profileImage", async (req, res) => {
+  let userName = req.query.userName;
+  ProfileImageModel.find(
+    {
+      userName: userName,
+    },
+    (err, result) => {
+      if (err) res.send("ERROR");
+      res.send(result);
+    }
+  );
+});
+
+router.put("/profileImageUserNameUpdate", async (req, res) => {
+  let userName = req.body.userName;
+  let newUserName = req.body.newUserName;
+
+  console.log(userName, newUserName)
+
+  try {
+    let profileImageData = await ProfileImageModel.find({
+      userName: userName,
+    });
+    profileImageData[0].userName = newUserName;
+    profileImageData[0].save();
+    res.send(profileImageData);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

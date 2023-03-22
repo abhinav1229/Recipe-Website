@@ -22,6 +22,7 @@ const EditUser = () => {
   const [twitterURL, setTwitterURL] = useState("");
   const [showRedWarning, setShowRedWaring] = useState(false);
   const [userNameWarningMessage, setUserNameWarningMessage] = useState("");
+  const [profileImageId, setProfileImageId] = useState("");
 
   const navigate = useNavigate();
 
@@ -33,8 +34,8 @@ const EditUser = () => {
   useEffect(() => {
     Axios.get(`${BASE_URL}/profile/getProfile`, {
       params: {
-        userName: userName
-      }
+        userName: userName,
+      },
     })
       .then((response) => {
         const user = response.data[0];
@@ -44,6 +45,7 @@ const EditUser = () => {
         setFacebookURL(user.userSocialLinks[0]);
         setInstgramURL(user.userSocialLinks[1]);
         setTwitterURL(user.userSocialLinks[2]);
+        setProfileImageId(user.profileImageId);
       })
       .catch((err) => {
         console.log(err);
@@ -76,13 +78,31 @@ const EditUser = () => {
         facebookURL: facebookURL,
         instagramURL: instagramURL,
         twitterURL: twitterURL,
+        profileImageId: profileImageId,
       })
         .then((response) => {
-          localData.userName = newUserName;
-          localData.fullName = fullName;
-          localStorage.setItem("userInfo", JSON.stringify(localData));
-          navigate("/");
-          console.log(response);
+          // update the image userName with currently updated userName
+
+          if (userName !== newUserName) {
+            console.log("hello!");
+            Axios.put(`${BASE_URL}/image/profileImageUserNameUpdate`, {
+              userName: userName,
+              newUserName: newUserName,
+            })
+              .then((response) => {
+                console.log(response);
+                localData.userName = newUserName;
+                localData.fullName = fullName;
+                localStorage.setItem("userInfo", JSON.stringify(localData));
+                navigate("/");
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            console.log("bye!");
+            navigate("/");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -94,10 +114,12 @@ const EditUser = () => {
     event.preventDefault();
     const data = new FormData();
     data.append("profileImage", event.target.files[0]);
-    data.append("userName", newUserName);
+    data.append("userName", userName);
     Axios.post(`${BASE_URL}/image/profileImageUpload`, data)
       .then((response) => {
         console.log(response);
+        const imageId = response.data._id;
+        setProfileImageId(imageId);
       })
       .catch((err) => {
         console.log(err);
@@ -114,7 +136,6 @@ const EditUser = () => {
             userName: e.target.value,
           })
             .then((response) => {
-              console.log(response.data);
               if (response.data.length) {
                 setUserNameWarningMessage(
                   "That username has been taken. Please choose another."

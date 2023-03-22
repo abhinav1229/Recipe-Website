@@ -17,7 +17,6 @@ const AboutRecipe = () => {
       recipeId: id,
     })
       .then((response) => {
-        console.log(response.data[0]);
         setRecipe(response.data[0]);
         setLoading(false);
       })
