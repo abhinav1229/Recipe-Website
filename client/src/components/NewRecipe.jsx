@@ -29,11 +29,11 @@ const NewRecipe = (props) => {
     setImageUploading(true);
   }
 
+  let user = JSON.parse(localStorage.getItem("userInfo"));
   function handleSubmit(e) {
     e.preventDefault();
     if (imageId) {
       setLoading(true);
-      let user = JSON.parse(localStorage.getItem("userInfo"));
 
       if (isUpdate) {
         Axios.put(`${BASE_URL}/recipe/updateRecipe`, {
@@ -81,6 +81,7 @@ const NewRecipe = (props) => {
   const onSelectFile = (event) => {
     const data = new FormData();
     data.append("testImage", event.target.files[0]);
+    data.append("userName", user.userName);
     setImageUploading(true);
     Axios.post(`${BASE_URL}/image/imageUpload`, data)
       .then((response) => {

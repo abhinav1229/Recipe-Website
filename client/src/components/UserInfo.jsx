@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 import { BASE_URL } from "../helper/ref";
 import Axios from "axios";
-import Profile from "../helper/profile.png"
+import Profile from "../helper/profile1.png"
 import "../styles/userInfo.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,7 +39,7 @@ const UserInfo = ({ userData, allUserRecipes }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [localData.userName]);
 
   return (
     <>

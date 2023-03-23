@@ -3,7 +3,7 @@ import Axios from "axios";
 import "../styles/user.css";
 import { BASE_URL } from "../helper/ref.js";
 import { NavLink } from "react-router-dom";
-import Profile from "../helper/profile.png"
+import Profile from "../helper/profile1.png"
 
 const User = () => {
   const [fullName, setFullName] = useState("");

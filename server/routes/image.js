@@ -19,7 +19,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/imageUpload", upload.single("testImage"), (req, res) => {
-  let fileName = req.file.filename;
+  const fileName = req.file.filename;
+  const userName = req.body.userName;
+  
   const saveImage = new ImageModel({
     img: {
       data: fs.readFileSync("uploads/" + fileName),
@@ -50,15 +52,22 @@ router.post(
   "/profileImageUpload",
   upload.single("profileImage"),
   (req, res) => {
+    let fileName = req.file.filename;
     ProfileImageModel.find({ userName: req.body.userName }, (err, result) => {
       if (err) res.send("ERROR");
 
       if (result.length) {
           result[0].img = {
-            data: fs.readFileSync("uploads/" + req.file.filename),
+            data: fs.readFileSync("uploads/" + fileName),
             contentType: "image/png",
           };
           result[0].save().then((response) => {
+            fs.unlink("uploads/" + fileName, (err) => {
+              if (err) {
+                throw err;
+              }
+              console.log("Upload Update: Delete File successfully.");
+            });
             res.send(response);
           })
           .catch((err) => {
@@ -69,7 +78,7 @@ router.post(
         const saveImage = new ProfileImageModel({
           userName: req.body.userName,
           img: {
-            data: fs.readFileSync("uploads/" + req.file.filename),
+            data: fs.readFileSync("uploads/" + fileName),
             contentType: "image/png",
           },
         });
@@ -77,6 +86,12 @@ router.post(
         saveImage
           .save()
           .then((response) => {
+            fs.unlink("uploads/" + fileName, (err) => {
+              if (err) {
+                throw err;
+              }
+              console.log("Upload: Delete File successfully.");
+            });
             res.send(response);
           })
           .catch((err) => {
