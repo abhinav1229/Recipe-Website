@@ -14,7 +14,6 @@ const AddReview = ({ recipeId, userName }) => {
       review: review,
     })
       .then((response) => {
-        console.log(response);
         setRecipeReviewd(true);
       })
       .catch((err) => {

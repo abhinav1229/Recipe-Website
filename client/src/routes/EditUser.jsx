@@ -90,7 +90,7 @@ const EditUser = () => {
               newUserName: newUserName,
             })
               .then((response) => {
-                console.log(response);
+                console.log("UPDATE RESPONSE: ", response);
                 localData.userName = newUserName;
                 localData.fullName = fullName;
                 localStorage.setItem("userInfo", JSON.stringify(localData));
@@ -101,6 +101,9 @@ const EditUser = () => {
               });
           } else {
             console.log("bye!");
+            localData.userName = newUserName;
+            localData.fullName = fullName;
+            localStorage.setItem("userInfo", JSON.stringify(localData));
             navigate("/");
           }
         })

@@ -18,10 +18,12 @@ router.put("/updateProfile", async (req, res) => {
   const twitterURL = req.body.twitterURL;
   const profileImageId = req.body.profileImageId;
 
+
   try {
     let profileData = await ProfileModel.find({
       userName: userName 
     })
+
     profileData[0].userName = newUserName;
     profileData[0].fullName = fullName;
     profileData[0].userBio = userBio;

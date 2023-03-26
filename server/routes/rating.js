@@ -33,7 +33,7 @@ router.post("/setRating", async (req, res) => {
         await rating.save();
         res.send("OK");
       } catch (e) {
-        console.log("ERROR");
+        console.log(e);
       }
     } else {
       let alreadyRatedUser = [];

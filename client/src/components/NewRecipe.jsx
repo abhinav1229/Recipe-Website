@@ -46,12 +46,11 @@ const NewRecipe = (props) => {
           recipeImageId: imageId,
         })
           .then((response) => {
-            console.log("updated successfully");
             setLoading(false);
             navigate("/");
           })
           .catch((err) => {
-            console.log("not updated due to: ", err);
+            console.log(err);
             setLoading(false);
           });
       } else {
@@ -64,12 +63,11 @@ const NewRecipe = (props) => {
           recipeImageId: imageId,
         })
           .then((response) => {
-            console.log("saved successfully");
             setLoading(false);
             navigate("/");
           })
           .catch((err) => {
-            console.log("not saved due to: ", err);
+            console.log(err);
             setLoading(false);
           });
       }
@@ -82,6 +80,7 @@ const NewRecipe = (props) => {
     const data = new FormData();
     data.append("testImage", event.target.files[0]);
     data.append("userName", user.userName);
+
     setImageUploading(true);
     Axios.post(`${BASE_URL}/image/imageUpload`, data)
       .then((response) => {
@@ -89,7 +88,6 @@ const NewRecipe = (props) => {
         setImageUploading(false);
       })
       .catch((err) => {
-        console.log(err);
         setImageUploading(false);
       });
   };
@@ -141,7 +139,7 @@ const NewRecipe = (props) => {
                   : "Add Recipe Image"}
               </div>
               <input type="file" name="file" onChange={onSelectFile} />
-              <i>(.jpg, .jpeg, or .png)</i>
+              <i>(only .png image)</i>
             </div>
             <textarea
               placeholder="Note"

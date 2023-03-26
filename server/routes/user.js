@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
     await profile.save();
     res.send(userSaveResult._id);
   } catch (e) {
-    console.log("Error from database save...");
+    console.log(e);
   }
 });
 
@@ -84,7 +84,6 @@ router.post("/userInfo", async (req, res) => {
 
 router.post("/userInfoById", async (req, res) => {
   let userId = req.body.userId;
-  console.log(userId);
   UserModel.find({ _id: userId }, (err, result) => {
     if (err) res.send("ERROR");
     else res.send(result);

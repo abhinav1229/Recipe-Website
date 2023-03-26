@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import Axios, { all } from "axios";
 import "../styles/recipeReviews.css";
 import { BASE_URL } from "../helper/ref.js";
 
 const RecipeReviews = ({ recipeId }) => {
   const [showReview, setShowReview] = useState(true);
   const [allReviews, setAllReviews] = useState([]);
+
+
   function fetchReviewsFromDB() {
     setShowReview(!showReview);
     if (showReview) {
@@ -24,7 +26,7 @@ const RecipeReviews = ({ recipeId }) => {
     <>
       <div className="reviewCount">
         <button onClick={fetchReviewsFromDB}>
-          {showReview ? "Show" : "Hide"} Review
+          {showReview ? "Show" : "Hide"} Review ({allReviews ?  allReviews.length : ""})
         </button>
       </div>
       {!showReview &&

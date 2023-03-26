@@ -15,7 +15,7 @@ const ContactUs = () => {
       email: email, 
       message: message,
     }).then((response) => {
-      console.log(response)
+      //nothing...
     }).catch((err) => {
       console.log(err);
     })

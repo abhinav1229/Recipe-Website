@@ -17,9 +17,9 @@
   width: 100%;
 }
 
-.RecipeInfo .left div img {
+.RecipeInfo .left .recipeImageContainer img {
   width: 100%;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .RecipeInfo .left .editRecipe{

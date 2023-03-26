@@ -10,8 +10,8 @@ const User = () => {
   const [userName, setUserName] = useState("");
   const [imageInfo, setImageInfo] = useState({});
 
+  let user = JSON.parse(localStorage.getItem("userInfo"));
   useEffect(() => {
-    let user = JSON.parse(localStorage.getItem("userInfo"));
     if (!user.fullName) {
       Axios.post(`${BASE_URL}/user/userInfo`, {
         userName: user.userName,
@@ -25,13 +25,13 @@ const User = () => {
           );
         })
         .catch((err) => {
-          console.log("Error hai: ", err);
+          console.log(err);
         });
     } else {
       setFullName(user.fullName);
       setUserName(user.userName);
     }
-  }, [fullName]);
+  }, [fullName, user]);
 
   let localData = JSON.parse(localStorage.getItem("userInfo"));
   useEffect(() => {
@@ -41,7 +41,7 @@ const User = () => {
       },
     })
       .then((response) => {
-        if (response.data[0]) {
+        if (response.data.length) {
           const base64String = btoa(
             String.fromCharCode(
               ...new Uint8Array(response.data[0].img.data.data)
@@ -84,7 +84,7 @@ const User = () => {
               <NavLink to={"/aboutuser/" + userName}>{userName}</NavLink>
             ) : (
               "..."
-            )}{" "}
+            )}
           </div>
         </div>
       </>

@@ -63,7 +63,7 @@ const Recipes = () => {
             <div className="spinner"></div>
           </div>
         ) : (
-          recipes.map((recipe, index) => {
+          recipes && recipes.map((recipe, index) => {
             return (
               <Recipe
                 key={recipe._id}

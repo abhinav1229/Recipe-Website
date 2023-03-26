@@ -37,15 +37,6 @@ const Register = () => {
               userPassword: userPassword,
             })
               .then((dataSaveResponse) => {
-                localStorage.setItem(
-                  "userInfo",
-                  JSON.stringify({
-                    userName: userName,
-                    fullName: fullName, 
-                    userId: dataSaveResponse.data,
-                  })
-                );
-
                 navigate("/");
                 setLoading(false);
               })

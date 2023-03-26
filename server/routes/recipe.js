@@ -43,7 +43,6 @@ router.put("/updateRecipe", async (req, res) => {
 
   RecipeModel.find({ _id: recipeId }, (err, result) => {
     if (err) res.send(err);
-    console.log(result[0]);
     result[0].recipeName = recipeName;
     result[0].recipeIngradients = recipeIngradients;
     result[0].recipeDescription = recipeDescription;
@@ -64,8 +63,14 @@ router.get("/allRecipe", (req, res) => {
 router.post("/recipeFind", (req, res) => {
   let recipeName = req.body.search;
 
-  RecipeModel.find({ recipeName: recipeName }, (err, result) => {
-    res.send(result);
+  RecipeModel.find({}, (err, result) => {
+    let newResult = result.filter((recipe) => {
+      if (recipe.recipeName.toLowerCase().includes(recipeName.toLowerCase()))
+        return recipe;
+    });
+
+    if (err) res.send(err);
+    res.send(newResult);
   });
 });
 

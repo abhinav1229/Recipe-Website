@@ -7,6 +7,7 @@ import "../styles/recipeRating.css";
 
 const RecipeRating = ({ recipeId }) => {
   const [rating, setRating] = useState(0);
+  const [ratingCount, setRatingCount] = useState(0);
 
   useEffect(() => {
     Axios.post(`${BASE_URL}/rating/getRating`, {
@@ -17,6 +18,7 @@ const RecipeRating = ({ recipeId }) => {
         let numberOfRatings = 0;
         if (response.data.length) {
           numberOfRatings = response.data[0].recipeRating.length;
+          setRatingCount(numberOfRatings);
         }
         if (numberOfRatings) {
           response.data[0].recipeRating.map((x) => (allRatings += x.rating));
@@ -38,6 +40,7 @@ const RecipeRating = ({ recipeId }) => {
         starSpacing="5px"
         name="rating"
       />
+      <div>{ratingCount} • {rating}/5 </div>
     </div>
   );
 };
