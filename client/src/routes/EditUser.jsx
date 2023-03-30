@@ -125,7 +125,7 @@ const EditUser = () => {
         setProfileImageId(imageId);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error aa rha hai...", err);
       });
   }
 

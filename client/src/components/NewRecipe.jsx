@@ -139,7 +139,7 @@ const NewRecipe = (props) => {
                   : "Add Recipe Image"}
               </div>
               <input type="file" name="file" onChange={onSelectFile} />
-              <i>(only .png image)</i>
+              <i>(upload .png, .jpg, .jpeg image)</i>
             </div>
             <textarea
               placeholder="Note"

@@ -111,3 +111,140 @@
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
+
+@media (min-width:320px)  { 
+  /* smartphones, iPhone, portrait 480x320 phones */ 
+
+  .mainLoginContainer{
+    background-color: red;
+  }
+  
+  .mainLoginContainer .left{
+    width: 100%;
+  }
+
+  .mainLoginContainer .right {
+    display: none;
+  }
+
+  .loginContainer input {
+    width: 80%;
+  }
+
+  .loginContainer h1{
+    width: 80%;
+  }
+
+  .loginContainer .forgotPassword{
+    width: 80%;
+  }
+
+  .loginContainer .firstButton {
+    width: 50%;
+  }
+
+  .loginContainer .pageRouter{
+    width: 50%;
+  }
+
+}
+
+
+@media (min-width:481px)  { 
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+  .mainLoginContainer{
+    background-color: blue;
+  }
+
+  .loginContainer input {
+    width: 70%;
+  }
+
+  .loginContainer h1{
+    width: 70%;
+  }
+
+  .loginContainer .forgotPassword{
+    width: 70%;
+  }
+  
+
+  .loginContainer .firstButton {
+    width: 35%;
+  }
+
+  .loginContainer .pageRouter{
+    width: 35%;
+  }
+  
+}
+@media (min-width:641px)  { 
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+  .mainLoginContainer{
+    background-color: rgb(252, 3, 218);
+  }
+
+  .loginContainer input {
+    width: 50%;
+  }
+
+  .loginContainer h1{
+    width: 50%;
+  }
+
+  .loginContainer .forgotPassword{
+    width: 50%;
+  }
+  
+
+  .loginContainer .firstButton {
+    width: 30%;
+  }
+
+  .loginContainer .pageRouter{
+    width: 30%;
+  }
+
+}
+@media (min-width:961px)  { 
+  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+  .mainLoginContainer{
+    background-color: rgb(2, 0, 2);
+  }
+
+  .mainLoginContainer .left{
+    width: 50%;
+  }
+
+  .mainLoginContainer .right {
+    display: flex;
+  }
+
+  .loginContainer input {
+    width: 70%;
+  }
+
+  .loginContainer h1{
+    width: 70%;
+  }
+
+  .loginContainer .forgotPassword{
+    width: 70%;
+  }
+}
+@media (min-width:1025px) { 
+  /* big landscape tablets, laptops, and desktops */ 
+  .loginContainer input {
+    width: 60%;
+  }
+
+  .loginContainer h1{
+    width: 60%;
+  }
+
+  .loginContainer .forgotPassword{
+    width: 60%;
+  }
+ 
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

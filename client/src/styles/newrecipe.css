@@ -133,3 +133,148 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+@media (min-width:0px)  { 
+  /* smartphones, iPhone, portrait 480x320 phones */ 
+
+  .newRecipe{
+    /* background-color: pink; */
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .newRecipe form{
+    flex-direction: column;
+  }
+
+  .newRecipe form .left{
+    width: 100%;
+  }
+
+  .newRecipe form .right{
+    width: 100%;
+    align-items: center;
+  }
+
+  .newRecipe form .right .fileContainer{
+    margin-top: 20px;
+  }
+}
+
+
+@media (min-width:481px)  { 
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+  .newRecipe{
+    /* background-color: yellow; */
+  }
+
+  
+}
+
+@media (min-width:641px)  { 
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+  .newRecipe{
+    /* background-color: red; */
+    width: calc(100% - 210px);
+    margin-left: 210px;
+    display: flex;
+  }
+
+  .newRecipe form{
+    flex-direction: column;
+  }
+
+  .newRecipe form .left{
+    width: 100%;
+  }
+
+  .newRecipe form .right{
+    width: 100%;
+    align-items: center;
+  }
+
+  .newRecipe form .right .fileContainer{
+    margin-top: 20px;
+  }
+
+}
+@media (min-width:961px)  { 
+  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+  .newRecipe{
+    /* background-color: blue; */
+  }
+
+  .newRecipe form{
+    flex-direction: row;
+  }
+
+  .newRecipe form .left{
+    width: 50%;
+  }
+
+  .newRecipe form .right{
+    width: 50%;
+    align-items: center;
+  }
+
+  .newRecipe form .right .fileContainer{
+    margin-top: 85px;
+  }
+
+  .newRecipe form .left div{
+    width: 90%;
+  }
+  .newRecipe form .left input{
+    width: 90%;
+  }
+
+  .newRecipe form .left textarea{
+    width: 90%;
+  }
+
+  .newRecipe form .left textarea{
+    width: 90%;
+  }
+
+  .newRecipe form .right .fileContainer{
+    width: 90%;
+  }
+
+  .newRecipe form .right textarea{
+    width: 90%;
+  }
+
+  .newRecipe form .right button{
+    width: 90%;
+  }
+}
+@media (min-width:1025px) { 
+  /* big landscape tablets, laptops, and desktops */ 
+  .newRecipe form .left div{
+    width: 70%;
+  }
+  .newRecipe form .left input{
+    width: 70%;
+  }
+
+  .newRecipe form .left textarea{
+    width: 70%;
+  }
+
+  .newRecipe form .left textarea{
+    width: 70%;
+  }
+
+  .newRecipe form .right .fileContainer{
+    width: 70%;
+  }
+
+  .newRecipe form .right textarea{
+    width: 70%;
+  }
+
+  .newRecipe form .right button{
+    width: 70%;
+  }
+}
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

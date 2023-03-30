@@ -7,7 +7,7 @@
 
 .recipesMain .topSection {
   margin: 30px 20px;
-  width: 100%;
+  width: 95%;
 }
 
 .recipesMain .topSection div {
@@ -57,4 +57,51 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (min-width: 320px) {
+  /* smartphones, iPhone, portrait 480x320 phones */
+
+  .recipesMain {
+    width: 100%;
+    display: flex;
+    margin-left: 0px;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+  .recipesMain {
+    /* background-color: blue; */
+    width: 100%;
+    display: flex;
+    margin-left: 0px;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .recipesMain {
+    /* background-color: yellow; */
+    width: calc(100% - 210px);
+    margin-left: 210px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .recipesMain {
+    /* background-color: green; */
+    width: calc(100% - 210px);
+    margin-left: 210px;
+    display: flex;
+    flex-direction: column;
+  }
 }
