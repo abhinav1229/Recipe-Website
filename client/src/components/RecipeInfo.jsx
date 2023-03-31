@@ -67,7 +67,6 @@ const RecipeInfo = (props) => {
             ""
           )}
           <RecipeRating recipeId={recipeId} />
-          <RecipeReviews recipeId={recipeId} />
         </div>
         <div className="right">
           <h1 style={{ color: "#5f9ea0" }}>{recipeName}</h1>
@@ -95,6 +94,8 @@ const RecipeInfo = (props) => {
               </button>
             )}
           </div>
+          <RecipeReviews recipeId={recipeId} />
+
         </div>
       </div>
     </>

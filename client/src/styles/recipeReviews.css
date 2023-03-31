@@ -5,7 +5,7 @@
 
 .reviewCount button {
   display: flex;
-  width: 60%;
+  width: auto;
   background-color: #8080803d;
   outline: none;
   border: none;

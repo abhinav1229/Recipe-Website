@@ -40,7 +40,7 @@ const RecipeRating = ({ recipeId }) => {
         starSpacing="5px"
         name="rating"
       />
-      <div>{ratingCount} • {rating}/5 </div>
+      <div className="ratingCount">({ratingCount} • {rating}/5)</div>
     </div>
   );
 };

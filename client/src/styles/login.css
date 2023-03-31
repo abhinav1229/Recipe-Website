@@ -116,7 +116,7 @@
   /* smartphones, iPhone, portrait 480x320 phones */ 
 
   .mainLoginContainer{
-    background-color: red;
+    /* background-color: red; */
   }
   
   .mainLoginContainer .left{
@@ -153,7 +153,7 @@
 @media (min-width:481px)  { 
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
   .mainLoginContainer{
-    background-color: blue;
+    /* background-color: blue; */
   }
 
   .loginContainer input {
@@ -181,7 +181,7 @@
 @media (min-width:641px)  { 
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
   .mainLoginContainer{
-    background-color: rgb(252, 3, 218);
+    /* background-color: rgb(252, 3, 218); */
   }
 
   .loginContainer input {
@@ -209,7 +209,7 @@
 @media (min-width:961px)  { 
   /* tablet, landscape iPad, lo-res laptops ands desktops */ 
   .mainLoginContainer{
-    background-color: rgb(2, 0, 2);
+    /* background-color: rgb(2, 0, 2); */
   }
 
   .mainLoginContainer .left{

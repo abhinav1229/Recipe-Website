@@ -8,9 +8,10 @@
 
 .RecipeInfo .left {
   width: 30%;
-  height: 80vh;
+  /* height: 80vh; */
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
 }
 
 .RecipeInfo .left .recipeImageContainer {
@@ -22,7 +23,7 @@
   border-radius: 7px;
 }
 
-.RecipeInfo .left .editRecipe{
+.RecipeInfo .left .editRecipe {
   margin-bottom: 15px;
   font-size: 1.3rem;
   display: flex;
@@ -32,7 +33,7 @@
   align-items: center;
 }
 
-.RecipeInfo .left .editRecipe a{
+.RecipeInfo .left .editRecipe a {
   color: #ffffffcf;
   width: 100%;
   background-color: #262626;
@@ -42,11 +43,11 @@
   transition: all 160ms linear;
 }
 
-.RecipeInfo .left .editRecipe a.editButton:hover{
+.RecipeInfo .left .editRecipe a.editButton:hover {
   background-color: #2e812ec7;
 }
 
-.RecipeInfo .left .editRecipe a.deleteButton:hover{
+.RecipeInfo .left .editRecipe a.deleteButton:hover {
   background-color: #d87070c7;
 }
 
@@ -96,5 +97,76 @@
 
 .RecipeInfo .right .userResponseWrapper .openRatingButton:hover {
   color: #000000;
-  background-color: #cddc39fc;
+  /* background-color: #cddc39fc; */
+}
+
+@media (min-width: 0px) {
+  .RecipeInfo {
+    width: 100%;
+    margin-left: 0px;
+    /* background-color: red; */
+    flex-direction: column;
+  }
+
+  .RecipeInfo .left {
+    width: 100%;
+    align-items: center;
+  }
+
+  .RecipeInfo .left a {
+    width: 85%;
+    align-items: center;
+  }
+
+  .RecipeInfo .left .RecipeRating {
+    width: 85%;
+  }
+
+  .RecipeInfo .right {
+    width: 100%;
+    padding: 0;
+  }
+
+  .RecipeInfo .left .recipeImageContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .RecipeInfo .left .recipeImageContainer img {
+    width: 320px;
+  }
+}
+
+@media (min-width: 481px) {
+  .RecipeInfo {
+    width: 100%;
+    margin-left: 0px;
+    /* background-color: blue; */
+  }
+}
+
+@media (min-width: 641px) {
+  .RecipeInfo {
+    width: calc(100% - 210px);
+    margin-left: 210px;
+    /* background-color: green; */
+  }
+}
+@media (min-width: 961px) {
+  .RecipeInfo {
+    width: calc(100% - 210px);
+    margin-left: 210px;
+    /* background-color: pink; */
+    flex-direction: row;
+  }
+
+  .RecipeInfo .left{
+    width: 60%;
+    padding-right: 20px;
+  }
+}
+@media (min-width: 1025px) {
+}
+@media (min-width: 1281px) {
 }
