@@ -6,6 +6,7 @@
   position: fixed;
   border-right: 0.5px solid #80808033;
   background-color: #080808;
+  z-index: 10;
 }
 
 .navbar .navPageRoutes {

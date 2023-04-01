@@ -9,7 +9,7 @@
 .RecipeRating {
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
 }
 
 .RecipeRating .ratingCount {
