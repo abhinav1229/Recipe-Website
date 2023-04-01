@@ -50,3 +50,63 @@
   overflow-wrap: break-word;
   min-height: 90px;
 }
+
+
+@media (min-width: 0px) {
+  .recipe {
+    width: 87vw;
+    height: 400px;
+  }
+}
+
+@media (min-width: 481px) {
+  .recipe {
+    width: 70vw;
+    height: 450px;
+  }
+}
+
+@media (min-width: 575px) {
+  .recipe {
+    width: 250px;
+    height: 300px;
+  }
+}
+
+@media (min-width: 641px) {
+  .recipe {
+    width: 350px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 700px) {
+  .recipe {
+    width: 350px;
+    height: 400px;
+  }
+}
+
+@media (min-width: 780px) {
+  .recipe {
+    width: 250px;
+    height: 300px;
+  }
+}
+
+@media (min-width: 961px) {
+  .recipe {
+    width: 250px;
+    height: 350px;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* big landscape tablets, laptops, and desktops */
+  
+}
+@media (min-width: 1281px) {
+  /* hi-res laptops and desktops */
+  
+}
+
