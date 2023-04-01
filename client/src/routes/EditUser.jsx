@@ -84,7 +84,6 @@ const EditUser = () => {
           // update the image userName with currently updated userName
 
           if (userName !== newUserName) {
-            console.log("hello!");
             Axios.put(`${BASE_URL}/image/profileImageUserNameUpdate`, {
               userName: userName,
               newUserName: newUserName,
@@ -100,7 +99,6 @@ const EditUser = () => {
                 console.log(err);
               });
           } else {
-            console.log("bye!");
             localData.userName = newUserName;
             localData.fullName = fullName;
             localStorage.setItem("userInfo", JSON.stringify(localData));
@@ -125,7 +123,7 @@ const EditUser = () => {
         setProfileImageId(imageId);
       })
       .catch((err) => {
-        console.log("Error aa rha hai...", err);
+        console.log(err);
       });
   }
 

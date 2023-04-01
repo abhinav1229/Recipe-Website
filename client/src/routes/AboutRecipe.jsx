@@ -9,7 +9,6 @@ const AboutRecipe = () => {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     setLoading(true);

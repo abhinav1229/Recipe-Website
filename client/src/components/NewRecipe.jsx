@@ -32,7 +32,7 @@ const NewRecipe = (props) => {
   let user = JSON.parse(localStorage.getItem("userInfo"));
   function handleSubmit(e) {
     e.preventDefault();
-    if (imageId) {
+    // if (imageId) {
       setLoading(true);
 
       if (isUpdate) {
@@ -71,9 +71,10 @@ const NewRecipe = (props) => {
             setLoading(false);
           });
       }
-    } else {
-      alert("Please add the image");
-    }
+    // } 
+    // else { 
+    //   alert("Please add the image");
+    // }
   }
 
   const onSelectFile = (event) => {

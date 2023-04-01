@@ -5,22 +5,27 @@ import { NavLink } from "react-router-dom";
 import Axios from "axios";
 import { BASE_URL } from "../helper/ref.js";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faTrash} from "@fortawesome/free-solid-svg-icons";
+import RecipeImage from "../helper/recipe.jpg";
 
 const Recipe = (props) => {
   const { recipeName, recipeDescription, recipeId, recipeImageId } = props;
   const [imageInfo, setImageInfo] = useState({});
 
   useEffect(() => {
-    Axios.post(`${BASE_URL}/image/getImage`, {
-      recipeImageId: recipeImageId,
+    Axios.get(`${BASE_URL}/image/getImage`, {
+      params: {
+        recipeImageId: recipeImageId,
+      }
     })
       .then((response) => {
-        const base64String = btoa(
-          String.fromCharCode(...new Uint8Array(response.data[0].img.data.data))
-        );
-        setImageInfo(base64String);
+        if (response.data !== "EMPTY") {
+          const base64String = btoa(
+            String.fromCharCode(
+              ...new Uint8Array(response.data[0].img.data.data)
+            )
+          );
+          setImageInfo(base64String);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -32,11 +37,13 @@ const Recipe = (props) => {
       <NavLink to={"/aboutrecipe/" + recipeId}>
         <div className="recipe">
           <div className="imgContainer">
-            {Object.keys(imageInfo).length !== 0 && (
+            {Object.keys(imageInfo).length !== 0 ? (
               <img
                 src={`data:image/png;base64,${imageInfo}`}
                 alt={recipeName}
               />
+            ) : (
+              <img src={RecipeImage} alt={recipeName} />
             )}
           </div>
           <div className="contentContainer">

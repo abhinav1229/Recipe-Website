@@ -7,6 +7,7 @@ import RecipeReviews from "./RecipeReviews";
 import { BASE_URL } from "../helper/ref.js";
 import RecipeRateResponse from "./RecipeRateResponse";
 import { NavLink } from "react-router-dom";
+import RecipeImage from "../helper/recipe.jpg";
 
 const RecipeInfo = (props) => {
   const {
@@ -27,17 +28,23 @@ const RecipeInfo = (props) => {
   const localData = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    Axios.post(`${BASE_URL}/image/getImage`, {
-      recipeImageId: recipeImageId,
+    Axios.get(`${BASE_URL}/image/getImage`, {
+      params: {
+        recipeImageId: recipeImageId,
+      },
     })
       .then((response) => {
-        const base64String = btoa(
-          String.fromCharCode(...new Uint8Array(response.data[0].img.data.data))
-        );
-        setImageInfo(base64String);
+        if (response.data !== "EMPTY") {
+          const base64String = btoa(
+            String.fromCharCode(
+              ...new Uint8Array(response.data[0].img.data.data)
+            )
+          );
+          setImageInfo(base64String);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("EEEEE: ", err);
       });
   }, []);
 
@@ -46,9 +53,14 @@ const RecipeInfo = (props) => {
       <div className="RecipeInfo">
         <div className="left">
           <div className="recipeImageContainer">
-            {Object.keys(imageInfo).length !== 0 && (
+            {Object.keys(imageInfo).length !== 0 ? (
               <img
                 src={`data:image/png;base64,${imageInfo}`}
+                alt={recipeName}
+              />
+            ) : (
+              <img
+                src={RecipeImage}
                 alt={recipeName}
               />
             )}
@@ -95,7 +107,6 @@ const RecipeInfo = (props) => {
             )}
           </div>
           <RecipeReviews recipeId={recipeId} />
-
         </div>
       </div>
     </>

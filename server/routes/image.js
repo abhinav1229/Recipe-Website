@@ -3,14 +3,14 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
 const fs = require("fs");
-const path = require('path');
+const path = require("path");
 
 const ImageModel = require("../Db/recipeimage");
 const ProfileImageModel = require("../Db/profileimage");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, "./uploads/");
   },
   filename: (req, file, cb) => {
     cb(
@@ -41,21 +41,20 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
   const extension = path.extname(fileName);
 
   const contentType = (() => {
-    switch(extension) {
-      case '.jpg':
-      case '.jpeg':
-        return 'image/jpeg';
-      case '.png':
-        return 'image/png';
+    switch (extension) {
+      case ".jpg":
+      case ".jpeg":
+        return "image/jpeg";
+      case ".png":
+        return "image/png";
       default:
-        return 'application/octet-stream';
+        return "application/octet-stream";
     }
   })();
 
-
   const saveImage = new ImageModel({
     img: {
-      data: fs.readFileSync("uploads/" + fileName),
+      data: fs.readFileSync("./uploads/" + fileName),
       contentType: contentType,
     },
   });
@@ -65,7 +64,7 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
     .then((response) => {
       // this code will delete the file which you have uploaded from the server/uploads folder.
       // but do upload on the database.
-      fs.unlink("uploads/" + fileName, (err) => {
+      fs.unlink("./uploads/" + fileName, (err) => {
         if (err) {
           throw err;
         }
@@ -82,6 +81,7 @@ router.post(
   upload.single("profileImage"),
   (req, res) => {
     let fileName = req.file.filename;
+
     ProfileImageModel.find({ userName: req.body.userName }, (err, result) => {
       if (err) res.send("ERROR");
 
@@ -95,7 +95,7 @@ router.post(
           .then((response) => {
             fs.unlink("uploads/" + fileName, (err) => {
               if (err) {
-                throw err;
+                res.send("Error to update new image...");
               }
             });
             res.send(response);
@@ -117,7 +117,7 @@ router.post(
           .then((response) => {
             fs.unlink("uploads/" + fileName, (err) => {
               if (err) {
-                throw err;
+                res.send("error to save the new image");
               }
             });
             res.send(response);
@@ -130,17 +130,21 @@ router.post(
   }
 );
 
-router.post("/getImage", async (req, res) => {
-  let recipeImageId = req.body.recipeImageId;
-  ImageModel.find(
-    {
+router.get("/getImage", async (req, res) => {
+  let recipeImageId = req.query.recipeImageId;
+  if(recipeImageId) {
+    let result = await ImageModel.find({
       _id: recipeImageId,
-    },
-    (err, result) => {
-      if (err) res.send("ERROR");
+    });
+
+    try{
       res.send(result);
+    } catch(e) {
+      res.send(e);
     }
-  );
+  } else {
+    res.send('EMPTY');
+  }
 });
 
 router.get("/profileImage", async (req, res) => {
@@ -160,12 +164,11 @@ router.put("/profileImageUserNameUpdate", async (req, res) => {
   let userName = req.body.userName;
   let newUserName = req.body.newUserName;
 
-
   try {
     let profileImageData = await ProfileImageModel.find({
       userName: userName,
     });
-    if(profileImageData.length) {
+    if (profileImageData.length) {
       profileImageData[0].userName = newUserName;
       profileImageData[0].save();
     }
