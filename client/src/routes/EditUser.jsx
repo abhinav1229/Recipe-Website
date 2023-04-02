@@ -118,7 +118,6 @@ const EditUser = () => {
     data.append("userName", userName);
     Axios.post(`${BASE_URL}/image/profileImageUpload`, data)
       .then((response) => {
-        console.log(response);
         const imageId = response.data._id;
         setProfileImageId(imageId);
       })
@@ -174,7 +173,8 @@ const EditUser = () => {
         <form className="formContainer" onSubmit={handleSubmit}>
           <div className="formGroup">
             <label htmlFor="profileImage">Profile Image</label>
-            <input type="file" id="profileImage" onChange={uploadImage} />
+            <p style={{color: "coral", fontSize: "15px", fontWeight: "200"}}>*Image option is disabled due to some technical issue.</p>
+            <input type="file" id="profileImage" onChange={uploadImage} disabled/>
           </div>
           <div className="formGroup">
             <label htmlFor="fullName">Full Name</label>

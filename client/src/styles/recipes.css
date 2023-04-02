@@ -88,9 +88,15 @@
   }
 }
 
+@media (min-width: 500px) {
+  .recipesMain .recipesContainer{
+    justify-content: left;
+  }
+}
+
 @media (min-width: 575px) {
   .recipesMain .recipesContainer{
-    justify-content: space-evenly;
+    justify-content: left;
   }
 }
 

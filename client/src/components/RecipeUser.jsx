@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "../styles/recipeUser.css";
 import Axios from "axios";
 import { BASE_URL } from "../helper/ref";
-import ProfileImage from "../helper/profile.png"
+import ProfileImage from "../helper/profile1.png"
 
 const RecipeUser = ({ userId, recipeSaveTime }) => {
   const date = new Date(recipeSaveTime);
@@ -34,7 +34,6 @@ const RecipeUser = ({ userId, recipeSaveTime }) => {
               );
               setImageInfo(base64String);
             }
-            // console.log("RP: ", response);
           })
           .catch((err) => {
             console.log(err);

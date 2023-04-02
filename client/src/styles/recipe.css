@@ -59,17 +59,31 @@
   }
 }
 
-@media (min-width: 481px) {
+@media (min-width: 450px) {
   .recipe {
-    width: 70vw;
+    width: 60vw;
     height: 450px;
+  }
+}
+
+@media (min-width: 500px) {
+  .recipe {
+    width: 230px;
+    height: 330px;
+  }
+}
+
+@media (min-width: 540px) {
+  .recipe {
+    width: 230px;
+    height: 330px;
   }
 }
 
 @media (min-width: 575px) {
   .recipe {
     width: 250px;
-    height: 300px;
+    height: 350px;
   }
 }
 

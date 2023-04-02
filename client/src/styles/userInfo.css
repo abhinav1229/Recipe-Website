@@ -31,7 +31,8 @@
 }
 
 .UserInfo .topSection .right p {
-  margin: 10px 0;
+  margin: 20px 50px;
+  text-align: center;
 }
 
 .socialMediaLinkContainer {
@@ -100,6 +101,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin-top: 20px;
+  justify-content: left;
 }
 
 @media (min-width: 0px) {
@@ -148,7 +150,10 @@
     margin-left: 210px;
     /* background-color: blue; */
   }
+
 }
+
+
 @media (min-width: 961px) {
   .UserInfo {
     width: calc(100% - 210px);
@@ -183,6 +188,21 @@
     align-items: flex-start;
     margin-top: 35px;
   }
+
+  .UserInfo .topSection .right p {
+    margin: 20px 20px 20px 0px;
+    text-align: left;
+  }
+
+  
+.UserInfo .bottomSection .recipeContainerAll {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: left;
+}
 }
 @media (min-width: 1025px) {
   /* big landscape tablets, laptops, and desktops */

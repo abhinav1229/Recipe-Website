@@ -38,6 +38,8 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
   const fileName = req.file.filename;
   const userName = req.body.userName;
 
+  console.log(req.file);
+
   const extension = path.extname(fileName);
 
   const contentType = (() => {
@@ -69,7 +71,7 @@ router.post("/imageUpload", upload.single("testImage"), (req, res) => {
           throw err;
         }
       });
-      res.send(response);
+      res.send("OK");
     })
     .catch((err) => {
       res.send("error to save");

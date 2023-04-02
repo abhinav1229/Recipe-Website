@@ -75,6 +75,10 @@ textarea {
   .EditUser .formContainer {
     width: 100%;
   }
+
+  .EditUser .formContainer .formGroup{
+    width: 85%;
+  }
 }
 
 @media (min-width: 481px) {

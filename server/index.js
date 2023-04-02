@@ -2,13 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("./Db/config");
 const cors = require("cors");
+const multer = require("multer");
 const app = express();
 
-const multer = require("multer");
+
+
 const bodyParser = require('body-parser')
+// const forms = multer();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(forms.array());
+// app.use(multer().array())
+// app.use(express.static('public'));
 
 // parse application/json
 app.use(bodyParser.json());
@@ -31,9 +37,28 @@ app.use("/image", imageRouter);
 app.use("/contact", contactRouter);
 app.use("/profile", profileRouter);
 
+
 app.get("/", (req, res) => {
   res.send("Hello Developer!");
 });
+
+
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, "uploads");
+//     },
+//     filename: function (req, file, cb){
+//       cb(null, file.fieldname + "-" + Date.now());
+//     },
+//   }),
+// }).single("user_img");
+
+// app.post("/upload", upload, (req, res) => {
+//   console.log("FILE:", req.file);
+//   res.send("saved");
+// });
+
 
 app.listen(3002, () => {
   console.log("Port is listeing at 3002");

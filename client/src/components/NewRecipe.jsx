@@ -83,12 +83,16 @@ const NewRecipe = (props) => {
     data.append("userName", user.userName);
 
     setImageUploading(true);
+
+    console.log(data);
+
     Axios.post(`${BASE_URL}/image/imageUpload`, data)
       .then((response) => {
+        console.log(response);
         setImageId(response.data._id);
         setImageUploading(false);
       })
-      .catch((err) => {
+      .catch((err) => { 
         setImageUploading(false);
       });
   };
@@ -139,8 +143,9 @@ const NewRecipe = (props) => {
                   ? "Uploading..."
                   : "Add Recipe Image"}
               </div>
-              <input type="file" name="file" onChange={onSelectFile} />
+              <input type="file" name="file" onChange={onSelectFile} disabled/>
               <i>(upload .png, .jpg, .jpeg image)</i>
+              <p style={{color: "coral", fontSize: "15px", fontWeight: "200"}}>*Image option is disabled due to some technical issue.</p>
             </div>
             <textarea
               placeholder="Note"
