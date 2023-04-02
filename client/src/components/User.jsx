@@ -10,7 +10,7 @@ const User = () => {
   const [userName, setUserName] = useState("");
   const [imageInfo, setImageInfo] = useState({});
 
-  let user = JSON.parse(localStorage.getItem("userInfo"));
+  let user = JSON.parse(localStorage.getItem("userInfoRecipe"));
   useEffect(() => {
     if (!user.fullName) {
       Axios.post(`${BASE_URL}/user/userInfo`, {
@@ -33,7 +33,7 @@ const User = () => {
     }
   }, [fullName, user]);
 
-  let localData = JSON.parse(localStorage.getItem("userInfo"));
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
   useEffect(() => {
     Axios.get(`${BASE_URL}/image/profileImage`, {
       params: {

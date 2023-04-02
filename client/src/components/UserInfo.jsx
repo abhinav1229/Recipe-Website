@@ -16,7 +16,7 @@ import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 
 const UserInfo = ({ userData, allUserRecipes }) => {
-  let localData = JSON.parse(localStorage.getItem("userInfo"));
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
 
   const [imageInfo, setImageInfo] = useState({});
 

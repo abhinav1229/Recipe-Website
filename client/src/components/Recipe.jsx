@@ -8,14 +8,20 @@ import { BASE_URL } from "../helper/ref.js";
 import RecipeImage from "../helper/recipe.jpg";
 
 const Recipe = (props) => {
-  const { recipeName, recipeDescription, recipeId, recipeImageId } = props;
+  const {
+    recipeName,
+    recipeDescription,
+    recipeId,
+    recipeImageId,
+    recipeImageUrl,
+  } = props;
   const [imageInfo, setImageInfo] = useState({});
 
   useEffect(() => {
     Axios.get(`${BASE_URL}/image/getImage`, {
       params: {
         recipeImageId: recipeImageId,
-      }
+      },
     })
       .then((response) => {
         if (response.data !== "EMPTY") {
@@ -43,7 +49,10 @@ const Recipe = (props) => {
                 alt={recipeName}
               />
             ) : (
-              <img src={RecipeImage} alt={recipeName} />
+              <img
+                src={recipeImageUrl ? recipeImageUrl : RecipeImage}
+                alt={recipeName}
+              />
             )}
           </div>
           <div className="contentContainer">

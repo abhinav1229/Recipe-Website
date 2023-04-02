@@ -43,8 +43,7 @@ router.post("/registerValidate", async (req, res) => {
   UserModel.find({ userName: userName }, (err, result) => {
     if (result.length === 0) {
       UserModel.find({ userEmail: userEmail }, (err, result) => {
-
-        if(err) res.status(500).send("error");
+        if (err) res.status(500).send("error");
 
         if (result.length === 0) {
           res.status(200).send("valid");
@@ -84,10 +83,14 @@ router.post("/userInfo", async (req, res) => {
 
 router.post("/userInfoById", async (req, res) => {
   let userId = req.body.userId;
-  UserModel.find({ _id: userId }, (err, result) => {
-    if (err) res.send("ERROR");
-    else res.send(result);
-  });
+  let result = await UserModel.find({ _id: userId });
+
+  console.log(userId);
+  try {
+    res.send(result);
+  } catch (e) {
+    res.send(e);
+  }
 });
 
 router.get("/", (req, res) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios, { all } from "axios";
 import "../styles/recipeReviews.css";
 import { BASE_URL } from "../helper/ref.js";
@@ -7,26 +7,30 @@ const RecipeReviews = ({ recipeId }) => {
   const [showReview, setShowReview] = useState(true);
   const [allReviews, setAllReviews] = useState([]);
 
-
-  function fetchReviewsFromDB() {
-    setShowReview(!showReview);
-    if (showReview) {
+  useEffect(() => {
+    async function fetchReviewsFromDB() {
       Axios.post(`${BASE_URL}/rating/fetchReviews`, {
         recipeId: recipeId,
       })
         .then((response) => {
-          setAllReviews(response.data[0].recipeRating);
+          if (response.data.length) {
+            // array of all reviews
+            setAllReviews(response.data[0].recipeRating);
+          }
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }
+    fetchReviewsFromDB();
+  }, []);
+
   return (
     <>
       <div className="reviewCount">
-        <button onClick={fetchReviewsFromDB}>
-          {showReview ? "Show" : "Hide"} Review ({allReviews ?  allReviews.length : ""})
+        <button onClick={() => setShowReview(!showReview)}>
+          {showReview ? "Show" : "Hide"} Review (
+          {allReviews ? allReviews.length : ""})
         </button>
       </div>
       {!showReview &&

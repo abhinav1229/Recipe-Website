@@ -11,6 +11,7 @@ router.post("/addNewRecipe", async (req, res) => {
   let recipeDescription = req.body.recipeDescription;
   let recipeNote = req.body.recipeNote;
   let recipeImageId = req.body.recipeImageId;
+  let recipeImageUrl = req.body.recipeImageUrl;
   let recipeSaveTime = new Date().toJSON();
 
   const recipe = new RecipeModel({
@@ -20,12 +21,13 @@ router.post("/addNewRecipe", async (req, res) => {
     recipeDescription: recipeDescription,
     recipeNote: recipeNote,
     recipeImageId: recipeImageId,
+    recipeImageUrl: recipeImageUrl,
     recipeSaveTime: recipeSaveTime,
   });
 
   try {
-    await recipe.save();
-    res.send("user saved...");
+    let result = await recipe.save();
+    res.send("Recipe Saved");
   } catch (e) {
     console.log(e);
   }
@@ -39,6 +41,7 @@ router.put("/updateRecipe", async (req, res) => {
   let recipeNote = req.body.recipeNote;
   let recipeImageId = req.body.recipeImageId;
   let recipeId = req.body.recipeId;
+  let recipeImageUrl = req.body.recipeImageUrl;
   let recipeSaveTime = new Date().toJSON();
 
   RecipeModel.find({ _id: recipeId }, (err, result) => {
@@ -49,6 +52,7 @@ router.put("/updateRecipe", async (req, res) => {
     result[0].recipeNote = recipeNote;
     result[0].recipeImageId = recipeImageId;
     result[0].recipeSaveTime = recipeSaveTime;
+    result[0].recipeImageUrl = recipeImageUrl;
     result[0].save();
     res.send("OK");
   });

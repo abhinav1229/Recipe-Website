@@ -25,7 +25,7 @@ const RecipeInfo = (props) => {
   const [imageInfo, setImageInfo] = useState({});
 
   // getting userId from the localStorage
-  const localData = JSON.parse(localStorage.getItem("userInfo"));
+  const localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
 
   useEffect(() => {
     Axios.get(`${BASE_URL}/image/getImage`, {

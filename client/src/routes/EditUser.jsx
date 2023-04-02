@@ -26,7 +26,7 @@ const EditUser = () => {
 
   const navigate = useNavigate();
 
-  const localData = JSON.parse(localStorage.getItem("userInfo"));
+  const localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
   const userName = localData.userName;
 
   // fetch the data from the database if user has already
@@ -92,7 +92,7 @@ const EditUser = () => {
                 console.log("UPDATE RESPONSE: ", response);
                 localData.userName = newUserName;
                 localData.fullName = fullName;
-                localStorage.setItem("userInfo", JSON.stringify(localData));
+                localStorage.setItem("userInfoRecipe", JSON.stringify(localData));
                 navigate("/");
               })
               .catch((err) => {
@@ -101,7 +101,7 @@ const EditUser = () => {
           } else {
             localData.userName = newUserName;
             localData.fullName = fullName;
-            localStorage.setItem("userInfo", JSON.stringify(localData));
+            localStorage.setItem("userInfoRecipe", JSON.stringify(localData));
             navigate("/");
           }
         })

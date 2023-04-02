@@ -3,9 +3,9 @@ import "../styles/newrecipe.css";
 import { BASE_URL } from "../helper/ref.js";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import isUrl from "is-url";
 
 const NewRecipe = (props) => {
-
   const navigate = useNavigate();
 
   const [isUpdate, setIsUpdate] = useState(false);
@@ -13,6 +13,7 @@ const NewRecipe = (props) => {
   const [recipeIngradients, setRecipeIngradients] = useState("");
   const [recipeDescription, setRecipeDescription] = useState("");
   const [recipeNote, setRecipeNote] = useState("");
+  const [recipeImageUrl, setRecipeImageUrl] = useState("");
   const [loading, setLoading] = useState("");
 
   // image
@@ -26,13 +27,14 @@ const NewRecipe = (props) => {
     setRecipeDescription(props.data.recipeDescription);
     setRecipeNote(props.data.recipeNote);
     setImageId(props.data.recipeImageId);
+    setRecipeImageUrl(props.data.recipeImageUrl)
     setImageUploading(true);
   }
 
-  let user = JSON.parse(localStorage.getItem("userInfo"));
+  let user = JSON.parse(localStorage.getItem("userInfoRecipe"));
   function handleSubmit(e) {
     e.preventDefault();
-    // if (imageId) {
+    if (isUrl(recipeImageUrl)) {
       setLoading(true);
 
       if (isUpdate) {
@@ -44,6 +46,7 @@ const NewRecipe = (props) => {
           recipeDescription: recipeDescription,
           recipeNote: recipeNote,
           recipeImageId: imageId,
+          recipeImageUrl: recipeImageUrl,
         })
           .then((response) => {
             setLoading(false);
@@ -61,6 +64,7 @@ const NewRecipe = (props) => {
           recipeDescription: recipeDescription,
           recipeNote: recipeNote,
           recipeImageId: imageId,
+          recipeImageUrl: recipeImageUrl,
         })
           .then((response) => {
             setLoading(false);
@@ -71,10 +75,9 @@ const NewRecipe = (props) => {
             setLoading(false);
           });
       }
-    // } 
-    // else { 
-    //   alert("Please add the image");
-    // }
+    } else {
+      alert("Recipe Image URL is not valid");
+    }
   }
 
   const onSelectFile = (event) => {
@@ -92,7 +95,7 @@ const NewRecipe = (props) => {
         setImageId(response.data._id);
         setImageUploading(false);
       })
-      .catch((err) => { 
+      .catch((err) => {
         setImageUploading(false);
       });
   };
@@ -143,10 +146,21 @@ const NewRecipe = (props) => {
                   ? "Uploading..."
                   : "Add Recipe Image"}
               </div>
-              <input type="file" name="file" onChange={onSelectFile} disabled/>
+              <input type="file" name="file" onChange={onSelectFile} disabled />
               <i>(upload .png, .jpg, .jpeg image)</i>
-              <p style={{color: "coral", fontSize: "15px", fontWeight: "200"}}>*Image option is disabled due to some technical issue.</p>
+              <p
+                style={{ color: "coral", fontSize: "15px", fontWeight: "200" }}
+              >
+                *Upload option is disabled due to some technical issue.
+              </p>
             </div>
+            <p style={{ color: "white" }}>- OR -</p>
+            <textarea
+              placeholder="Paste the Recipe Image URL"
+              rows={1}
+              value={recipeImageUrl}
+              onChange={(e) => setRecipeImageUrl(e.target.value)}
+            ></textarea>
             <textarea
               placeholder="Note"
               rows={6}

@@ -27,6 +27,10 @@ const RecipeSchema = new mongoose.Schema({
   },
   recipeImageId: {
     type: String,
+  },
+  recipeImageUrl: {
+    type: String,
+    required: false,
   }
 });
 

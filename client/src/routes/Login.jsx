@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // clear the user from localStorage
-  localStorage.setItem("userInfo", null);
+  localStorage.setItem("userInfoRecipe", null);
 
   const checkUserExist = () => {
     Axios.post(`${BASE_URL}/user/loginValidate`, {
@@ -27,7 +27,7 @@ const Login = () => {
           setLoading(false);
         } else {
           localStorage.setItem(
-            "userInfo",
+            "userInfoRecipe",
             JSON.stringify({
               userName: userName,
               fullName: response.data[0].fullName, 

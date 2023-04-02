@@ -11,10 +11,6 @@ const Navbar = ({ active }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { height, width } = useWindowDimensions();
 
-  // if(width >= 641){
-  //   setNavOpen(true);
-  // }
-
   useEffect(() => {
     if (width >= 641) {
       setNavOpen(true);
@@ -46,7 +42,7 @@ const Navbar = ({ active }) => {
       >
         Contact
       </Link>
-      <Link className="navPageRoutes" to="/login">
+      <Link className="navPageRoutes" to="/logout">
         Logout
       </Link>
       {width <= 641 && (

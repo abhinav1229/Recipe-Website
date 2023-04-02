@@ -7,7 +7,7 @@ import Axios from "axios";
 
 const RecipeRateResponse = ({ recipeId }) => {
   const [rating, setRating] = useState(0);
-  let ratingUserName = JSON.parse(localStorage.getItem("userInfo"));
+  let ratingUserName = JSON.parse(localStorage.getItem("userInfoRecipe"));
   function saveRating(newRating) {
     setRating(newRating);
     Axios.post(`${BASE_URL}/rating/setRating`, {

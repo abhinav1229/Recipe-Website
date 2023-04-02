@@ -11,7 +11,7 @@ const AboutUser = () => {
 
   const [userData, setUserData] = useState({});
   const [allUserRecipes, setAllUserRecipes] = useState([]);
-  let localData = JSON.parse(localStorage.getItem("userInfo"));
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
 
   useEffect(() => {
     setLoading(true);

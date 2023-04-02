@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     setLoading(true);
-    let user = JSON.parse(localStorage.getItem("userInfo"));
+    let user = JSON.parse(localStorage.getItem("userInfoRecipe"));
     if (!user) {
       navigate("/login");
     }
