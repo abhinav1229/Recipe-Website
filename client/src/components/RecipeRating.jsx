@@ -23,7 +23,12 @@ const RecipeRating = ({ recipeId }) => {
         if (numberOfRatings) {
           response.data[0].recipeRating.map((x) => (allRatings += x.rating));
         }
-        setRating(allRatings / (numberOfRatings ? numberOfRatings : 1));
+
+        setRating(
+          Number(
+            (allRatings / (numberOfRatings ? numberOfRatings : 1)).toFixed(2)
+          )
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -40,7 +45,9 @@ const RecipeRating = ({ recipeId }) => {
         starSpacing="5px"
         name="rating"
       />
-      <div className="ratingCount">({ratingCount} • {rating}/5)</div>
+      <div className="ratingCount">
+        ({ratingCount} • {rating}/5)
+      </div>
     </div>
   );
 };

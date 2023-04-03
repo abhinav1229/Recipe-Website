@@ -23,6 +23,7 @@ const EditUser = () => {
   const [showRedWarning, setShowRedWaring] = useState(false);
   const [userNameWarningMessage, setUserNameWarningMessage] = useState("");
   const [profileImageId, setProfileImageId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -69,6 +70,7 @@ const EditUser = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     if (allLinkAreValid()) {
       Axios.put(`${BASE_URL}/profile/updateProfile`, {
         userName: userName,
@@ -92,8 +94,12 @@ const EditUser = () => {
                 console.log("UPDATE RESPONSE: ", response);
                 localData.userName = newUserName;
                 localData.fullName = fullName;
-                localStorage.setItem("userInfoRecipe", JSON.stringify(localData));
-                navigate("/");
+                localStorage.setItem(
+                  "userInfoRecipe",
+                  JSON.stringify(localData)
+                );
+                setLoading(false);
+                navigate(`/aboutuser/${newUserName}`);
               })
               .catch((err) => {
                 console.log(err);
@@ -102,13 +108,15 @@ const EditUser = () => {
             localData.userName = newUserName;
             localData.fullName = fullName;
             localStorage.setItem("userInfoRecipe", JSON.stringify(localData));
-            navigate("/");
+            // navigate("/");
+            navigate(`/aboutuser/${newUserName}`);
           }
         })
         .catch((err) => {
           console.log(err);
         });
     }
+    setLoading(false);
   }
 
   function uploadImage(event) {
@@ -166,95 +174,126 @@ const EditUser = () => {
     }
   }
 
+  function handleUserBioEdit(e) {
+    e.preventDefault();
+
+    // if (e.target.value.split(" ").length <= 30) {
+      setUserBio(e.target.value);
+    // } 
+  }
+
   return (
     <>
       <Navbar />
-      <main className="EditUser">
-        <form className="formContainer" onSubmit={handleSubmit}>
-          <div className="formGroup">
-            <label htmlFor="profileImage">Profile Image</label>
-            <p style={{color: "coral", fontSize: "15px", fontWeight: "200"}}>*Image option is disabled due to some technical issue.</p>
-            <input type="file" id="profileImage" onChange={uploadImage} disabled/>
-          </div>
-          <div className="formGroup">
-            <label htmlFor="fullName">Full Name</label>
-            <input
-              type="text"
-              id="fullName"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-          <div className="formGroup">
-            <label htmlFor="userName">Username</label>
-            <input
-              type="text"
-              id="userName"
-              value={newUserName}
-              onChange={checkUserName}
-            />
-            <p
-              className={showRedWarning ? "userNameExist" : "userNameNotExist"}
-            >
-              {userNameWarningMessage}
-            </p>
-          </div>
-          <div className="formGroup">
-            <label htmlFor="userBio">Add Bio</label>
-            <textarea
-              name=""
-              id="userBio"
-              cols="30"
-              rows="5"
-              placeholder="Tell about yourself (max 30 words)"
-              value={userBio}
-              onChange={(e) => setUserBio(e.target.value)}
-            ></textarea>
-          </div>
-          <div className="formGroup socialFormGroup">
-            <label htmlFor="facebook">
-              <FontAwesomeIcon icon={faFacebook} className="fa-2x icon-hover" />
-            </label>
-            <input
-              type="text"
-              id="facebook"
-              placeholder="Link to facebook profile"
-              value={facebookURL}
-              onChange={(e) => setFacebookURL(e.target.value)}
-            />
-          </div>
-          <div className="formGroup socialFormGroup">
-            <label htmlFor="instagram">
-              <FontAwesomeIcon
-                icon={faInstagram}
-                className="fa-2x icon-hover"
+      {loading ? (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        <main className="EditUser">
+          <form className="formContainer" onSubmit={handleSubmit}>
+            <div className="formGroup">
+              <label htmlFor="profileImage">Profile Image</label>
+              <p
+                style={{ color: "coral", fontSize: "15px", fontWeight: "200" }}
+              >
+                *Image option is disabled due to some technical issue.
+              </p>
+              <input
+                type="file"
+                id="profileImage"
+                onChange={uploadImage}
+                disabled
               />
-            </label>
-            <input
-              type="text"
-              id="instagram"
-              placeholder="Link to instagram profile"
-              value={instagramURL}
-              onChange={(e) => setInstgramURL(e.target.value)}
-            />
-          </div>
-          <div className="formGroup socialFormGroup">
-            <label htmlFor="twitter">
-              <FontAwesomeIcon icon={faTwitter} className="fa-2x icon-hover" />
-            </label>
-            <input
-              type="text"
-              id="twitter"
-              placeholder="Link to twitter profile"
-              value={twitterURL}
-              onChange={(e) => setTwitterURL(e.target.value)}
-            />
-          </div>
-          <div className="formGroup">
-            <input type="submit" value={"Update"} />
-          </div>
-        </form>
-      </main>
+            </div>
+            <div className="formGroup">
+              <label htmlFor="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <label htmlFor="userName">Username</label>
+              <input
+                type="text"
+                id="userName"
+                value={newUserName}
+                onChange={checkUserName}
+              />
+              <p
+                className={
+                  showRedWarning ? "userNameExist" : "userNameNotExist"
+                }
+              >
+                {userNameWarningMessage}
+              </p>
+            </div>
+            <div className="formGroup">
+              <label htmlFor="userBio">Add Bio</label>
+              <textarea
+                name=""
+                id="userBio"
+                cols="30"
+                rows="5"
+                placeholder="Tell about yourself (max 30 words)"
+                value={userBio}
+                onChange={handleUserBioEdit}
+              ></textarea>
+            </div>
+            <div className="formGroup socialFormGroup">
+              <label htmlFor="facebook">
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  className="fa-2x icon-hover"
+                />
+              </label>
+              <input
+                type="text"
+                id="facebook"
+                placeholder="Link to facebook profile"
+                value={facebookURL}
+                onChange={(e) => setFacebookURL(e.target.value)}
+              />
+            </div>
+            <div className="formGroup socialFormGroup">
+              <label htmlFor="instagram">
+                <FontAwesomeIcon
+                  icon={faInstagram}
+                  className="fa-2x icon-hover"
+                />
+              </label>
+              <input
+                type="text"
+                id="instagram"
+                placeholder="Link to instagram profile"
+                value={instagramURL}
+                onChange={(e) => setInstgramURL(e.target.value)}
+              />
+            </div>
+            <div className="formGroup socialFormGroup">
+              <label htmlFor="twitter">
+                <FontAwesomeIcon
+                  icon={faTwitter}
+                  className="fa-2x icon-hover"
+                />
+              </label>
+              <input
+                type="text"
+                id="twitter"
+                placeholder="Link to twitter profile"
+                value={twitterURL}
+                onChange={(e) => setTwitterURL(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <input type="submit" value={"Update"} />
+            </div>
+          </form>
+        </main>
+      )}
     </>
   );
 };
