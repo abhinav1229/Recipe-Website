@@ -4,8 +4,7 @@ import { BASE_URL } from "../helper/ref";
 import Axios from "axios";
 import Profile from "../helper/profile1.png";
 import "../styles/userInfo.css";
-import Avatar from 'react-avatar';
-
+import Avatar from "react-avatar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,25 +22,27 @@ const UserInfo = ({ userData, allUserRecipes }) => {
   const [imageInfo, setImageInfo] = useState({});
 
   useEffect(() => {
-    Axios.get(`${BASE_URL}/image/profileImage`, {
-      params: {
-        userName: localData.userName,
-      },
-    })
-      .then((response) => {
-        if (response.data[0]) {
-          const base64String = btoa(
-            String.fromCharCode(
-              ...new Uint8Array(response.data[0].img.data.data)
-            )
-          );
-          setImageInfo(base64String);
-        }
+    if (localData) {
+      Axios.get(`${BASE_URL}/image/profileImage`, {
+        params: {
+          userName: localData.userName,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [localData.userName]);
+        .then((response) => {
+          if (response.data[0]) {
+            const base64String = btoa(
+              String.fromCharCode(
+                ...new Uint8Array(response.data[0].img.data.data)
+              )
+            );
+            setImageInfo(base64String);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <>
@@ -55,7 +56,17 @@ const UserInfo = ({ userData, allUserRecipes }) => {
               />
             ) : (
               // <img src={Profile} alt={localData.userName} />
-              <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} name={userData.fullName} size="200" round={true} src="" />
+              <Avatar
+                color={Avatar.getRandomColor("sitebase", [
+                  "red",
+                  "green",
+                  "blue",
+                ])}
+                name={userData.fullName}
+                size="200"
+                round={true}
+                src=""
+              />
             )}
           </div>
           <div className="right">
@@ -107,7 +118,7 @@ const UserInfo = ({ userData, allUserRecipes }) => {
                 />
               </a>
             </div>
-            {userData.userName === localData.userName ? (
+            {localData && userData.userName === localData.userName ? (
               <NavLink
                 className={"editLink"}
                 to={"/aboutrecipe/edit/" + userData.userName}

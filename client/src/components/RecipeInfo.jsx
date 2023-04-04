@@ -45,7 +45,7 @@ const RecipeInfo = (props) => {
         }
       })
       .catch((err) => {
-        console.log("EEEEE: ", err);
+        console.log(err);
       });
   }, []);
 
@@ -67,7 +67,7 @@ const RecipeInfo = (props) => {
             )}
           </div>
           <RecipeUser userId={userId} recipeSaveTime={recipeSaveTime} />
-          {localData.userId === userId ? (
+          {(localData && localData.userId === userId) ? (
             <div className="editRecipe">
               <NavLink to={"/edit/" + recipeId} className="editButton">
                 Edit

@@ -3,58 +3,63 @@ import Axios from "axios";
 import "../styles/user.css";
 import { BASE_URL } from "../helper/ref.js";
 import { NavLink } from "react-router-dom";
-import Profile from "../helper/profile1.png";
-import Avatar from 'react-avatar';
+import Avatar from "react-avatar";
 
 const User = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [imageInfo, setImageInfo] = useState({});
 
-  let user = JSON.parse(localStorage.getItem("userInfoRecipe"));
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
   useEffect(() => {
-    if (!user.fullName) {
-      Axios.post(`${BASE_URL}/user/userInfo`, {
-        userName: user.userName,
+    if (localData) {
+      if (!localData.fullName) {
+        Axios.post(`${BASE_URL}/user/userInfo`, {
+          userName: localData.userName,
+        })
+          .then((response) => {
+            setFullName(response.data[0].fullName);
+            setUserName(response.data[0].userName);
+            localStorage.setItem(
+              "userInfo",
+              JSON.stringify({ ...localData, fullName: fullName })
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        setFullName(localData.fullName);
+        setUserName(localData.userName);
+      }
+    } else {
+      setFullName("Guest User");
+      setUserName("guest");
+    }
+  }, [fullName, localData]);
+
+  useEffect(() => {
+    if (localData) {
+      Axios.get(`${BASE_URL}/image/profileImage`, {
+        params: {
+          userName: localData.userName,
+        },
       })
         .then((response) => {
-          setFullName(response.data[0].fullName);
-          setUserName(response.data[0].userName);
-          localStorage.setItem(
-            "userInfo",
-            JSON.stringify({ ...user, fullName: fullName })
-          );
+          if (response.data.length) {
+            const base64String = btoa(
+              String.fromCharCode(
+                ...new Uint8Array(response.data[0].img.data.data)
+              )
+            );
+            setImageInfo(base64String);
+          }
         })
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      setFullName(user.fullName);
-      setUserName(user.userName);
     }
-  }, [fullName, user]);
-
-  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
-  useEffect(() => {
-    Axios.get(`${BASE_URL}/image/profileImage`, {
-      params: {
-        userName: localData.userName,
-      },
-    })
-      .then((response) => {
-        if (response.data.length) {
-          const base64String = btoa(
-            String.fromCharCode(
-              ...new Uint8Array(response.data[0].img.data.data)
-            )
-          );
-          setImageInfo(base64String);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [localData.userName]);
+  }, []);
 
   return (
     <div className="userProfile">
@@ -71,11 +76,7 @@ const User = () => {
               alt={localData.userName}
             />
           ) : (
-            // <img
-            //   src={Profile}
-            //   alt={localData.userName}
-            // />
-            <Avatar name={localData.fullName} size="50" round={true} src="" />
+            <Avatar name={fullName} size="50" round={true} src="" />
           )}
         </div>
         <div className="userDataContainer">
@@ -83,7 +84,9 @@ const User = () => {
           <div className="username">
             @
             {userName.length ? (
-              <NavLink to={"/aboutuser/" + userName}>{userName}</NavLink>
+              <NavLink to={localData ? `/aboutuser/${userName}` : "/login"}>
+                {userName}
+              </NavLink>
             ) : (
               "..."
             )}

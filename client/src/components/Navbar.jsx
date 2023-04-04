@@ -11,6 +11,9 @@ const Navbar = ({ active }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { height, width } = useWindowDimensions();
 
+  // getting the userinfo from the localstorage
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
+
   useEffect(() => {
     if (width >= 641) {
       setNavOpen(true);
@@ -18,7 +21,14 @@ const Navbar = ({ active }) => {
   }, [width]);
 
   return (
-    <div className={navOpen ? "navbar openNav" : "navbar closeNav"}  style={(width <= 641) ? {"transition" : "all 150ms linear"} : {"transition" : "none"}}>
+    <div
+      className={navOpen ? "navbar openNav" : "navbar closeNav"}
+      style={
+        width <= 641
+          ? { transition: "all 150ms linear" }
+          : { transition: "none" }
+      }
+    >
       <User />
       <Link
         className={active === "home" ? "navPageRoutes active" : "navPageRoutes"}
@@ -42,9 +52,24 @@ const Navbar = ({ active }) => {
       >
         Contact
       </Link>
-      <Link className="navPageRoutes" to="/logout">
-        Logout
-      </Link>
+
+      {localData ? (
+        <>
+          <Link className="navPageRoutes" to="/logout">
+            Logout
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link className="navPageRoutes" to="/login">
+            Login
+          </Link>
+          <Link className="navPageRoutes" to="/register">
+            Register
+          </Link>
+        </>
+      )}
+
       {width <= 641 && (
         <button onClick={() => setNavOpen(!navOpen)}>
           {navOpen ? (
