@@ -133,6 +133,7 @@ const UserInfo = ({ userData, allUserRecipes }) => {
                   recipeDescription={recipe.recipeDescription}
                   recipeNote={recipe.recipeNote}
                   recipeImageId={recipe.recipeImageId}
+                  recipeImageUrl={recipe.recipeImageUrl}
                   recipeId={recipe._id}
                 />
               );

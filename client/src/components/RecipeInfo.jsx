@@ -19,6 +19,7 @@ const RecipeInfo = (props) => {
     recipeSaveTime,
     recipeId,
     recipeImageId,
+    recipeImageUrl,
   } = props;
 
   const [openRating, setOpenRating] = useState(false);
@@ -60,7 +61,7 @@ const RecipeInfo = (props) => {
               />
             ) : (
               <img
-                src={RecipeImage}
+                src={recipeImageUrl ? recipeImageUrl : RecipeImage}
                 alt={recipeName}
               />
             )}

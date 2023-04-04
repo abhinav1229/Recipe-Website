@@ -42,6 +42,7 @@ const AboutRecipe = () => {
           recipeNote={recipe.recipeNote}
           recipeSaveTime={recipe.recipeSaveTime}
           recipeImageId={recipe.recipeImageId}
+          recipeImageUrl={recipe.recipeImageUrl}
           recipeId={recipe._id}
         />
       )}
