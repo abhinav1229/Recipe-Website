@@ -8,17 +8,21 @@ const AddReview = ({ recipeId, userName }) => {
   const [recipeReviewed, setRecipeReviewd] = useState(false);
   function handleReviewSubmit(e) {
     e.preventDefault();
-    Axios.post(`${BASE_URL}/rating/saveReview`, {
-      recipeId: recipeId,
-      userName: userName,
-      review: review,
-    })
-      .then((response) => {
-        setRecipeReviewd(true);
+    if (review.length) {
+      Axios.post(`${BASE_URL}/rating/saveReview`, {
+        recipeId: recipeId,
+        userName: userName,
+        review: review,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {
+          setRecipeReviewd(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setRecipeReviewd(true);
+    }
   }
   return (
     <>

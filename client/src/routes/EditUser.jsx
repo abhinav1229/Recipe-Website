@@ -71,7 +71,7 @@ const EditUser = () => {
   function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    if (allLinkAreValid()) {
+    if (allLinkAreValid() && !showRedWarning) {
       Axios.put(`${BASE_URL}/profile/updateProfile`, {
         userName: userName,
         newUserName: newUserName,

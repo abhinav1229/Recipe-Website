@@ -49,6 +49,7 @@ router.post("/setRating", async (req, res) => {
           userName: alreadyRatedUser.userName,
           rating: recipeRating,
           review: "",
+          reviewTimeStamp: new Date(),
         };
         result[0].save();
         res.send("updated already");
@@ -57,6 +58,7 @@ router.post("/setRating", async (req, res) => {
           userName: userName,
           rating: recipeRating,
           review: "",
+          reviewTimeStamp: new Date(),
         });
         result[0].save();
         res.send("updated new");
@@ -85,6 +87,7 @@ router.post("/saveReview", (req, res) => {
       userName: reviewObject.userName,
       rating: reviewObject.rating,
       review: review,
+      reviewTimeStamp: new Date(),
     };
     result[0].save();
     res.send("OK");
