@@ -80,7 +80,7 @@ const User = () => {
           )}
         </div>
         <div className="userDataContainer">
-          <div className="user"> {fullName.length ? fullName : "..."} </div>
+          <div className="user"> {fullName.length ? fullName.split(" ")[0] : "..."} </div>
           <div className="username">
             @
             {userName.length ? (

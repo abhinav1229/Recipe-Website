@@ -37,7 +37,7 @@
 
 .socialMediaLinkContainer {
   display: flex;
-  width: 130px;
+  /* width: 130px; */
   justify-content: space-between;
 }
 
@@ -45,6 +45,7 @@
   text-decoration: none;
   background-color: transparent;
   color: navajowhite;
+  margin: 0 20px 0 0;
 }
 
 .icon-hover {

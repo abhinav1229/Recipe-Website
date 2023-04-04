@@ -53,6 +53,15 @@ const Navbar = ({ active }) => {
         Contact
       </Link>
 
+      <Link
+        className={
+          active === "aboutme" ? "navPageRoutes active" : "navPageRoutes"
+        }
+        to="/aboutme"
+      >
+        About Me
+      </Link>
+
       {localData ? (
         <>
           <Link className="navPageRoutes" to="/logout">
