@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 const RecipeRateResponse = ({ recipeId }) => {
   const [rating, setRating] = useState(0);
-  let ratingUserName = JSON.parse(localStorage.getItem("userInfoRecipe"));
+  let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
   const navigate = useNavigate();
 
   function saveRating(newRating) {
-    if (ratingUserName) {
+    if (localData) {
       setRating(newRating);
       Axios.post(`${BASE_URL}/rating/setRating`, {
-        userName: ratingUserName.userName,
+        userName: localData.userName,
         recipeId: recipeId,
         recipeRating: newRating,
       })
@@ -33,14 +33,14 @@ const RecipeRateResponse = ({ recipeId }) => {
   return (
     <>
       {rating ? (
-        <AddReview recipeId={recipeId} userName={ratingUserName.userName} />
+        <AddReview recipeId={recipeId} userName={localData.userName} />
       ) : (
         <StarRatings
           rating={rating}
           starRatedColor="yellow"
           starHoverColor="yellow"
           numberOfStars={5}
-          changeRating={(newRating) => saveRating(newRating)}
+          changeRating={(newRating) => saveRating(localData ? newRating : 0)}
           starDimension="25px"
           starSpacing="5px"
           name="rating"

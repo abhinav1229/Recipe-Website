@@ -37,7 +37,7 @@ const Register = () => {
               userPassword: userPassword,
             })
               .then((dataSaveResponse) => {
-                navigate("/");
+                navigate("/login");
                 setLoading(false);
               })
               .catch((saveDataError) => {
