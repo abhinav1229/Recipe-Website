@@ -26,6 +26,15 @@
 
 .singleReviewContainer .reviewUserName {
   font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.singleReviewContainer .reviewUserName .reviewTime {
+  margin-left: 10px;
+  font-size: 1rem;
+  font-weight: 100;
+  color: grey;
 }
 
 .singleReviewContainer .reviewDescription {

@@ -37,7 +37,10 @@ const RecipeReviews = ({ recipeId }) => {
         allReviews.map((reviewObj, index) => {
           return reviewObj.review.length ? (
             <div key={index} className="singleReviewContainer">
-              <div className="reviewUserName">{reviewObj.userName}</div>
+              <div className="reviewUserName">
+                <div className="userName">{reviewObj.userName}</div>
+                <div className="reviewTime">• 2 days ago</div>
+              </div>
               <div className="reviewDescription">{reviewObj.review}</div>
             </div>
           ) : (

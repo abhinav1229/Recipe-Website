@@ -56,6 +56,10 @@
   color: #ffc774;
 }
 
+.UserInfo .topSection .right .userName {
+  color: #00dcff;
+}
+
 .UserInfo .topSection .right .editLink {
   display: inline-block;
   outline: none;
@@ -150,9 +154,7 @@
     margin-left: 210px;
     /* background-color: blue; */
   }
-
 }
-
 
 @media (min-width: 961px) {
   .UserInfo {
@@ -194,15 +196,14 @@
     text-align: left;
   }
 
-  
-.UserInfo .bottomSection .recipeContainerAll {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  justify-content: left;
-}
+  .UserInfo .bottomSection .recipeContainerAll {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: left;
+  }
 }
 @media (min-width: 1025px) {
   /* big landscape tablets, laptops, and desktops */

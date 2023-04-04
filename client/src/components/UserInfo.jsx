@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 import { BASE_URL } from "../helper/ref";
 import Axios from "axios";
-import Profile from "../helper/profile1.png"
+import Profile from "../helper/profile1.png";
 import "../styles/userInfo.css";
+import Avatar from 'react-avatar';
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -49,15 +51,16 @@ const UserInfo = ({ userData, allUserRecipes }) => {
             {Object.keys(imageInfo).length !== 0 ? (
               <img
                 src={`data:image/png;base64,${imageInfo}`}
-                alt={localData.userName}
+                alt={userData.fullName}
               />
             ) : (
-              <img src={Profile} alt={localData.userName} />
+              // <img src={Profile} alt={localData.userName} />
+              <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} name={userData.fullName} size="200" round={true} src="" />
             )}
           </div>
           <div className="right">
             <h1>{userData.fullName}</h1>
-            <h3>{userData.userName}</h3>
+            <h3 className="userName">@{userData.userName}</h3>
             <p>{userData.userBio}</p>
             <div className="socialMediaLinkContainer">
               <a

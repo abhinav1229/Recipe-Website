@@ -3,7 +3,8 @@ import Axios from "axios";
 import "../styles/user.css";
 import { BASE_URL } from "../helper/ref.js";
 import { NavLink } from "react-router-dom";
-import Profile from "../helper/profile1.png"
+import Profile from "../helper/profile1.png";
+import Avatar from 'react-avatar';
 
 const User = () => {
   const [fullName, setFullName] = useState("");
@@ -70,10 +71,11 @@ const User = () => {
               alt={localData.userName}
             />
           ) : (
-            <img
-              src={Profile}
-              alt={localData.userName}
-            />
+            // <img
+            //   src={Profile}
+            //   alt={localData.userName}
+            // />
+            <Avatar name={localData.fullName} size="50" round={true} src="" />
           )}
         </div>
         <div className="userDataContainer">

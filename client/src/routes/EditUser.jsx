@@ -192,7 +192,7 @@ const EditUser = () => {
       ) : (
         <main className="EditUser">
           <form className="formContainer" onSubmit={handleSubmit}>
-            <div className="formGroup">
+            {/* <div className="formGroup">
               <label htmlFor="profileImage">Profile Image</label>
               <p
                 style={{ color: "coral", fontSize: "15px", fontWeight: "200" }}
@@ -205,6 +205,9 @@ const EditUser = () => {
                 onChange={uploadImage}
                 disabled
               />
+            </div> */}
+            <div className="formGroup">
+              
             </div>
             <div className="formGroup">
               <label htmlFor="fullName">Full Name</label>

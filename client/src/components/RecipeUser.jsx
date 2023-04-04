@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import "../styles/recipeUser.css";
 import Axios from "axios";
 import { BASE_URL } from "../helper/ref";
-import ProfileImage from "../helper/profile1.png"
+// import ProfileImage from "../helper/profile1.png";
+import Avatar from 'react-avatar';
 
 const RecipeUser = ({ userId, recipeSaveTime }) => {
   const date = new Date(recipeSaveTime);
@@ -51,7 +52,7 @@ const RecipeUser = ({ userId, recipeSaveTime }) => {
           {Object.keys(imageInfo).length !== 0 ? (
             <img src={`data:image/png;base64,${imageInfo}`} alt={userName} />
           ) : (
-            <img src={ProfileImage} alt={userName} />
+            <Avatar color={Avatar.getRandomColor('sitebase', ['red', 'green', 'blue'])} name={fullName} size="40" round={true} src="" />
           )}
         </div>
         <div className="userDataContainer">
