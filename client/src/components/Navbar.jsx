@@ -40,7 +40,7 @@ const Navbar = ({ active }) => {
         className={
           active === "addnew" ? "navPageRoutes active" : "navPageRoutes"
         }
-        to="/addnew"
+        to={localData ? "/addnew" : "/login"}
       >
         Add Recipes
       </Link>
