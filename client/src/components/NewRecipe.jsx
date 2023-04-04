@@ -34,7 +34,7 @@ const NewRecipe = (props) => {
   let user = JSON.parse(localStorage.getItem("userInfoRecipe"));
   function handleSubmit(e) {
     e.preventDefault();
-    if (isUrl(recipeImageUrl)) {
+    if (!recipeImageUrl || (recipeImageUrl && isUrl(recipeImageUrl))) {
       setLoading(true);
 
       if (isUpdate) {
