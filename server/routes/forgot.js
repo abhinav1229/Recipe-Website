@@ -4,9 +4,10 @@ const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 
 const UserModel = require("../Db/user");
+require('dotenv').config();
 
-const sendMail = "amitrecb@gmail.com";
-const sendPassword = "ifhcaihchcvydzha";
+const sendMail = process.env.MAIL_USER;
+const sendPassword = process.env.MAIL_PASSWORD;
 
 const generateOtp = () => {
   return Math.floor(Math.random() * (9999 - 1000)) + 1000 + "";
@@ -16,7 +17,6 @@ let generatedOtp = undefined;
 
 router.post("/otp", async (req, res) => {
   let userEmail = req.body.userEmail;
-  let userName = "Abhinav";
 
   try {
     const transporter = nodemailer.createTransport({
@@ -39,7 +39,15 @@ router.post("/otp", async (req, res) => {
       from: sendMail,
       to: userEmail,
       subject: "Don't Share",
-      html: `${userName}OTP is: ${generatedOtp}`,
+      html: `
+          <div  style="text-align: center;">
+            <h1> Keep My Recipe </h1>
+            <br/> 
+            <p> Hi, Let's reset your password. </p>
+            <p> To reset the password, use the given OTP <p>
+            <h2>${generatedOtp}</h2>
+          </div>
+      `,
     };
 
     transporter
@@ -92,3 +100,4 @@ router.post("/removeOtp", async (req, res) => {
 });
 
 module.exports = router;
+ 

@@ -4,6 +4,9 @@ import Axios from "axios";
 import "../styles/login.css";
 import "../styles/loading.css";
 import { BASE_URL } from "../helper/ref.js";
+import { passwordStrength } from "check-password-strength";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -12,44 +15,61 @@ const Register = () => {
   const [userPassword, setUserPassword] = useState("");
   const [userConfirmPassword, setUserConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [passwordStrengthMessage, setPasswordStrengthMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const colorPatterns = {
+    "Too weak": "red",
+    Weak: "coral",
+    Medium: "yellow",
+    Strong: "greenyellow",
+  };
 
   const navigate = useNavigate();
 
   const checkUserAvailability = () => {
-    if (userPassword === userConfirmPassword) {
-      Axios.post(`${BASE_URL}/user/registerValidate`, {
-        userName: userName,
-        userEmail: userEmail,
-      })
-        .then((response) => {
-          if (response.data === "username") {
-            setErrorMessage("This username already exists.");
-            setLoading(false);
-          } else if (response.data === "email") {
-            setErrorMessage("This email is already used.");
-            setLoading(false);
-          } else {
-            Axios.post(`${BASE_URL}/user/register`, {
-              fullName: fullName,
-              userName: userName,
-              userEmail: userEmail,
-              userPassword: userPassword,
-            })
-              .then((dataSaveResponse) => {
-                navigate("/login");
-                setLoading(false);
-              })
-              .catch((saveDataError) => {
-                console.log("Error to save!", saveDataError);
-              });
-          }
+    if (passwordStrengthMessage === "Strong") {
+      if (userPassword === userConfirmPassword) {
+        Axios.post(`${BASE_URL}/user/registerValidate`, {
+          userName: userName,
+          userEmail: userEmail,
         })
-        .catch((error) => {
-          console.error("There was an error!", error);
-        });
+          .then((response) => {
+            if (response.data === "username") {
+              setErrorMessage("This username already exists.");
+              setLoading(false);
+            } else if (response.data === "email") {
+              setErrorMessage("This email is already used.");
+              setLoading(false);
+            } else {
+              Axios.post(`${BASE_URL}/user/register`, {
+                fullName: fullName,
+                userName: userName,
+                userEmail: userEmail,
+                userPassword: userPassword,
+              })
+                .then((dataSaveResponse) => {
+                  navigate("/login");
+                  setLoading(false);
+                })
+                .catch((saveDataError) => {
+                  console.log("Error to save!", saveDataError);
+                });
+            }
+          })
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
+      } else {
+        setErrorMessage("Password does not match.");
+        setLoading(false);
+      }
     } else {
-      setErrorMessage("Password does not match.");
+      setErrorMessage(
+        "Please make your password Strong."
+      );
       setLoading(false);
     }
   };
@@ -58,6 +78,12 @@ const Register = () => {
     setLoading(true);
     event.preventDefault();
     checkUserAvailability();
+  };
+
+  const handlePasswordStrongness = (e) => {
+    setUserPassword(e.target.value);
+
+    setPasswordStrengthMessage(passwordStrength(e.target.value).value);
   };
 
   return (
@@ -93,20 +119,63 @@ const Register = () => {
                 onChange={(e) => setUserEmail(e.target.value)}
                 required
               />
-              <input
-                type="password"
-                placeholder="Password"
-                value={userPassword}
-                onChange={(e) => setUserPassword(e.target.value)}
-                required
-              />
-              <input
-                type={"password"}
-                placeholder="Confirm Password"
-                value={userConfirmPassword}
-                onChange={(e) => setUserConfirmPassword(e.target.value)}
-                required
-              />
+              <div className="passwordInputContainer">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={userPassword}
+                  onChange={handlePasswordStrongness}
+                  required
+                />
+                <div
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                >
+                  {!showPassword ? (
+                    <FontAwesomeIcon icon={faEye} style={{ color: "grey" }} />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faEyeSlash}
+                      style={{ color: "grey" }}
+                    />
+                  )}
+                </div>
+              </div>
+              {userPassword && (
+                <p
+                  className="passwordStrengthMessage"
+                  style={{ color: colorPatterns[passwordStrengthMessage] }}
+                >
+                  {passwordStrengthMessage}
+                </p>
+              )}
+
+              <div className="passwordInputContainer">
+                <input
+                  type={showPasswordConfirm ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  value={userConfirmPassword}
+                  onChange={(e) => setUserConfirmPassword(e.target.value)}
+                  required
+                />
+
+                <div
+                  onClick={() => {
+                    setShowPasswordConfirm(!showPasswordConfirm);
+                  }}
+                >
+                  {!showPasswordConfirm ? (
+                    <FontAwesomeIcon icon={faEye} style={{ color: "grey" }} />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faEyeSlash}
+                      style={{ color: "grey" }}
+                    />
+                  )}
+                </div>
+              </div>
+
               <button type="submit" className="firstButton">
                 Register
               </button>

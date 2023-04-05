@@ -4,12 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import "../styles/loading.css";
 import { BASE_URL } from "../helper/ref.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,7 +34,7 @@ const Login = () => {
             "userInfoRecipe",
             JSON.stringify({
               userName: userName,
-              fullName: response.data[0].fullName, 
+              fullName: response.data[0].fullName,
               userId: response.data[0]._id,
             })
           );
@@ -44,8 +48,8 @@ const Login = () => {
   };
 
   const handleSubmit = (event) => {
-    setLoading(true);
     event.preventDefault();
+    setLoading(true);
     checkUserExist();
   };
 
@@ -68,13 +72,31 @@ const Login = () => {
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
-              <input
-                type={"password"}
-                placeholder="Password"
-                value={userPassword}
-                onChange={(e) => setUserPassword(e.target.value)}
-                required
-              />
+
+              <div className="passwordInputContainer">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  value={userPassword}
+                  onChange={(e) => setUserPassword(e.target.value)}
+                  required
+                />
+                <div
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                >
+                  {!showPassword ? (
+                    <FontAwesomeIcon icon={faEye} style={{ color: "grey" }} />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faEyeSlash}
+                      style={{ color: "grey" }}
+                    />
+                  )}
+                </div>
+              </div>
+
               <div className="forgotPassword">
                 <Link to={"/forgot"}>Forgot Password?</Link>
               </div>

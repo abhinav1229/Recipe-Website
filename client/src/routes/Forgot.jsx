@@ -56,7 +56,6 @@ const Forgot = () => {
   };
 
   const handleOtpSubmit = (event) => {
-    console.log("123 abhinav");
     setLoading(true);
     console.log(sendOtp, userOtp);
     event.preventDefault();

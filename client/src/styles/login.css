@@ -37,6 +37,33 @@
   border-radius: 1px;
 }
 
+.loginContainer .passwordInputContainer {
+  width: 60%;
+}
+
+.loginContainer .passwordInputContainer input {
+  margin-left: 0;
+  width: 90%;
+  margin-right: 0;
+}
+
+.loginContainer .passwordInputContainer div {
+  font-size: 1.3rem;
+  width: 10%;
+  display: inline-block;
+  padding: 6px 6px 6px 7px;
+  outline: none;
+  border: none;
+  background-color: #262626;
+  cursor: pointer;
+  transition: all 200ms linear;
+  text-align: center;
+}
+
+.loginContainer .passwordStrengthMessage {
+  width: 60%;
+}
+
 .mainLoginContainer .left .warningMessage {
   color: coral;
   font-size: 1.2rem;
@@ -112,14 +139,22 @@
   filter: alpha(opacity=50);
 }
 
-@media (min-width:320px)  { 
-  /* smartphones, iPhone, portrait 480x320 phones */ 
+@media (min-width: 320px) {
+  /* smartphones, iPhone, portrait 480x320 phones */
 
-  .mainLoginContainer{
-    /* background-color: red; */
+  .loginContainer .passwordInputContainer {
+    width: 80%;
   }
-  
-  .mainLoginContainer .left{
+
+  .loginContainer .passwordInputContainer input{
+    width: 87%;
+  }
+
+  .loginContainer .passwordInputContainer div{
+    width: 13%;
+  }
+
+  .mainLoginContainer .left {
     width: 100%;
   }
 
@@ -131,11 +166,11 @@
     width: 80%;
   }
 
-  .loginContainer h1{
+  .loginContainer h1 {
     width: 80%;
   }
 
-  .loginContainer .forgotPassword{
+  .loginContainer .forgotPassword {
     width: 80%;
   }
 
@@ -143,76 +178,81 @@
     width: 50%;
   }
 
-  .loginContainer .pageRouter{
+  .loginContainer .pageRouter {
     width: 50%;
   }
-
 }
 
+@media (min-width: 481px) {
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 
-@media (min-width:481px)  { 
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
-  .mainLoginContainer{
-    /* background-color: blue; */
+  .loginContainer .passwordInputContainer {
+    width: 70%;
   }
+
 
   .loginContainer input {
     width: 70%;
   }
 
-  .loginContainer h1{
+  .loginContainer h1 {
     width: 70%;
   }
 
-  .loginContainer .forgotPassword{
+  .loginContainer .forgotPassword {
     width: 70%;
   }
-  
 
   .loginContainer .firstButton {
     width: 35%;
   }
 
-  .loginContainer .pageRouter{
+  .loginContainer .pageRouter {
     width: 35%;
   }
-  
 }
-@media (min-width:641px)  { 
-  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
-  .mainLoginContainer{
-    /* background-color: rgb(252, 3, 218); */
+@media (min-width: 641px) {
+  /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+  .loginContainer .passwordInputContainer {
+    width: 50%;
   }
 
   .loginContainer input {
     width: 50%;
   }
 
-  .loginContainer h1{
+  .loginContainer h1 {
     width: 50%;
   }
 
-  .loginContainer .forgotPassword{
+  .loginContainer .forgotPassword {
     width: 50%;
   }
-  
 
   .loginContainer .firstButton {
     width: 30%;
   }
 
-  .loginContainer .pageRouter{
+  .loginContainer .pageRouter {
     width: 30%;
   }
-
 }
-@media (min-width:961px)  { 
-  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
-  .mainLoginContainer{
-    /* background-color: rgb(2, 0, 2); */
+@media (min-width: 961px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .loginContainer .passwordInputContainer {
+    width: 70%;
   }
 
-  .mainLoginContainer .left{
+  .loginContainer .passwordInputContainer input{
+    width: 87%;
+  }
+
+  .loginContainer .passwordInputContainer div{
+    width: 13%;
+  }
+
+
+  .mainLoginContainer .left {
     width: 50%;
   }
 
@@ -224,27 +264,34 @@
     width: 70%;
   }
 
-  .loginContainer h1{
+  .loginContainer h1 {
     width: 70%;
   }
 
-  .loginContainer .forgotPassword{
+  .loginContainer .forgotPassword {
     width: 70%;
   }
 }
-@media (min-width:1025px) { 
-  /* big landscape tablets, laptops, and desktops */ 
+@media (min-width: 1025px) {
+  /* big landscape tablets, laptops, and desktops */
+
+  .loginContainer .passwordInputContainer {
+    width: 60%;
+  }
+
+
   .loginContainer input {
     width: 60%;
   }
 
-  .loginContainer h1{
+  .loginContainer h1 {
     width: 60%;
   }
 
-  .loginContainer .forgotPassword{
+  .loginContainer .forgotPassword {
     width: 60%;
   }
- 
 }
-@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+@media (min-width: 1281px) {
+  /* hi-res laptops and desktops */
+}
