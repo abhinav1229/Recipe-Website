@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-client/src/helper/ref.js
+/client/src/helper/ref.js
 
 # testing
 /coverage

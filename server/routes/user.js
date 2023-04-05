@@ -57,12 +57,12 @@ router.post("/registerValidate", async (req, res) => {
   });
 });
 
-router.post("/loginValidate", async (req, res) => {
-  let userName = req.body.userName;
+router.post("/loginValidateByUserName", async (req, res) => {
+  let userLoginData = req.body.userLoginData;
   let userPassword = req.body.userPassword;
 
   UserModel.find(
-    { userName: userName, userPassword: userPassword },
+    { userName: userLoginData, userPassword: userPassword },
     (err, result) => {
       if (result.length !== 0) {
         res.status(200).send(result);
@@ -72,6 +72,24 @@ router.post("/loginValidate", async (req, res) => {
     }
   );
 });
+
+
+router.post("/loginValidateByEmail", async (req, res) => {
+  let userLoginData = req.body.userLoginData;
+  let userPassword = req.body.userPassword;
+
+  UserModel.find(
+    { userEmail: userLoginData, userPassword: userPassword },
+    (err, result) => {
+      if (result.length !== 0) {
+        res.status(200).send(result);
+      } else {
+        res.send("invalid");
+      }
+    }
+  );
+});
+
 
 router.post("/userInfo", async (req, res) => {
   let userName = req.body.userName;

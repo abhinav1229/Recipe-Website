@@ -6,10 +6,10 @@ import "../styles/loading.css";
 import { BASE_URL } from "../helper/ref.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import validator from "email-validator";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
+  const [userLoginData, setUserLoginData] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,12 @@ const Login = () => {
   // clear the user from localStorage
   localStorage.setItem("userInfoRecipe", null);
 
-  const checkUserExist = () => {
-    Axios.post(`${BASE_URL}/user/loginValidate`, {
-      userName: userName,
+  const loginToUser = () => {
+    let url = validator.validate(userLoginData)
+      ? `${BASE_URL}/user/loginValidateByEmail`
+      : `${BASE_URL}/user/loginValidateByUserName`;
+    Axios.post(url, {
+      userLoginData: userLoginData,
       userPassword: userPassword,
     })
       .then((response) => {
@@ -33,7 +36,7 @@ const Login = () => {
           localStorage.setItem(
             "userInfoRecipe",
             JSON.stringify({
-              userName: userName,
+              userName: response.data[0].userName,
               fullName: response.data[0].fullName,
               userId: response.data[0]._id,
             })
@@ -43,14 +46,14 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.log("There is a problem on login", error);
+        console.log(error);
       });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    checkUserExist();
+    loginToUser();
   };
 
   return (
@@ -67,9 +70,9 @@ const Login = () => {
               <h1> Login 🥂 </h1>
               <input
                 type="text"
-                placeholder="Username"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Username or email"
+                value={userLoginData}
+                onChange={(e) => setUserLoginData(e.target.value)}
                 required
               />
 
