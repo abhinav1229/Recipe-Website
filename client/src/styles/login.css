@@ -62,6 +62,30 @@
 
 .loginContainer .passwordStrengthMessage {
   width: 60%;
+  display: flex;
+  justify-content: left;
+}
+
+.loginContainer .passwordStrengthMessage .strengthBars {
+  height: 4px;
+  width: 25%;
+  margin-right: 2%;
+}
+
+.loginContainer .passwordStrengthMessage .tooWeakBar {
+  background-color: red;
+}
+
+.loginContainer .passwordStrengthMessage .weakBar {
+  background-color: coral;
+}
+
+.loginContainer .passwordStrengthMessage .mediumBar {
+  background-color: yellow;
+}
+
+.loginContainer .passwordStrengthMessage .strongBar {
+  background-color: green;
 }
 
 .mainLoginContainer .left .warningMessage {
@@ -146,11 +170,11 @@
     width: 80%;
   }
 
-  .loginContainer .passwordInputContainer input{
+  .loginContainer .passwordInputContainer input {
     width: 87%;
   }
 
-  .loginContainer .passwordInputContainer div{
+  .loginContainer .passwordInputContainer div {
     width: 13%;
   }
 
@@ -181,6 +205,9 @@
   .loginContainer .pageRouter {
     width: 50%;
   }
+  .loginContainer .passwordStrengthMessage {
+    width: 80%;
+  }
 }
 
 @media (min-width: 481px) {
@@ -189,7 +216,6 @@
   .loginContainer .passwordInputContainer {
     width: 70%;
   }
-
 
   .loginContainer input {
     width: 70%;
@@ -209,6 +235,10 @@
 
   .loginContainer .pageRouter {
     width: 35%;
+  }
+
+  .loginContainer .passwordStrengthMessage {
+    width: 70%;
   }
 }
 @media (min-width: 641px) {
@@ -236,6 +266,9 @@
   .loginContainer .pageRouter {
     width: 30%;
   }
+  .loginContainer .passwordStrengthMessage {
+    width: 50%;
+  }
 }
 @media (min-width: 961px) {
   /* tablet, landscape iPad, lo-res laptops ands desktops */
@@ -243,14 +276,13 @@
     width: 70%;
   }
 
-  .loginContainer .passwordInputContainer input{
+  .loginContainer .passwordInputContainer input {
     width: 87%;
   }
 
-  .loginContainer .passwordInputContainer div{
+  .loginContainer .passwordInputContainer div {
     width: 13%;
   }
-
 
   .mainLoginContainer .left {
     width: 50%;
@@ -271,6 +303,10 @@
   .loginContainer .forgotPassword {
     width: 70%;
   }
+
+  .loginContainer .passwordStrengthMessage {
+    width: 70%;
+  }
 }
 @media (min-width: 1025px) {
   /* big landscape tablets, laptops, and desktops */
@@ -278,7 +314,6 @@
   .loginContainer .passwordInputContainer {
     width: 60%;
   }
-
 
   .loginContainer input {
     width: 60%;
@@ -289,6 +324,10 @@
   }
 
   .loginContainer .forgotPassword {
+    width: 60%;
+  }
+
+  .loginContainer .passwordStrengthMessage {
     width: 60%;
   }
 }

@@ -67,9 +67,7 @@ const Register = () => {
         setLoading(false);
       }
     } else {
-      setErrorMessage(
-        "Please make your password Strong."
-      );
+      setErrorMessage("Please make your password Strong.");
       setLoading(false);
     }
   };
@@ -143,12 +141,35 @@ const Register = () => {
                 </div>
               </div>
               {userPassword && (
-                <p
+                <div
                   className="passwordStrengthMessage"
                   style={{ color: colorPatterns[passwordStrengthMessage] }}
                 >
-                  {passwordStrengthMessage}
-                </p>
+                  {passwordStrengthMessage === "Too weak" && (
+                    <div className="strengthBars tooWeakBar"></div>
+                  )}
+                  {passwordStrengthMessage === "Weak" && (
+                    <>
+                      <div className="strengthBars tooWeakBar"></div>
+                      <div className="strengthBars weakBar"></div>
+                    </>
+                  )}
+                  {passwordStrengthMessage === "Medium" && (
+                    <>
+                      <div className="strengthBars tooWeakBar"></div>
+                      <div className="strengthBars weakBar"></div>
+                      <div className="strengthBars mediumBar"></div>
+                    </>
+                  )}
+                  {passwordStrengthMessage === "Strong" && (
+                    <>
+                      <div className="strengthBars tooWeakBar"></div>
+                      <div className="strengthBars weakBar"></div>
+                      <div className="strengthBars mediumBar"></div>
+                      <div className="strengthBars strongBar"></div>
+                    </>
+                  )}
+                </div>
               )}
 
               <div className="passwordInputContainer">

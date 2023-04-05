@@ -43,7 +43,7 @@ const Recipes = () => {
   return (
     <div className="recipesMain">
       <div className="topSection">
-        <div>Recipes</div>
+        <div>Recipes 🥘</div>
         <form onSubmit={handleSearchSubmit}>
           <input
             type="search"

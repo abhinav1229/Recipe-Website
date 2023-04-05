@@ -109,7 +109,7 @@ const NewRecipe = (props) => {
       ) : (
         <form onSubmit={handleSubmit}>
           <div className="left">
-            <div> Add a recipe </div>
+            <div> Add a recipe 👩‍🍳</div>
             <input
               placeholder="Name of the recipe"
               value={recipeName}
