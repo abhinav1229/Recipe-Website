@@ -2,20 +2,24 @@ const mongoose = require("mongoose");
 
 const ProfileSchema = new mongoose.Schema({
   userName: {
-    type: String, 
-    required: true, 
-  }, 
+    type: String,
+    required: true,
+  },
+  userId: {
+    type: String,
+    required: true,
+  },
   fullName: {
-    type: String, 
+    type: String,
     required: true,
   },
   userBio: {
-    type: String, 
-  }, 
+    type: String,
+  },
   userSocialLinks: {
     type: Array,
-  }, 
-  profileImageId: {
+  },
+  profileImageUrl: {
     type: String,
   },
 });

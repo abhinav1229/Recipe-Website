@@ -72,8 +72,8 @@ const Recipes = () => {
                 recipeIngradients={recipe.recipeIngradients}
                 recipeDescription={recipe.recipeDescription}
                 recipeNote={recipe.recipeNote}
-                recipeImageId={recipe.recipeImageId}
                 recipeImageUrl={recipe.recipeImageUrl}
+                recipeImageUploadUrl={recipe.recipeImageUploadUrl}
                 recipeId={recipe._id}
               />
             );

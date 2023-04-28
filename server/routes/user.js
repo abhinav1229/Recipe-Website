@@ -19,16 +19,16 @@ router.post("/register", async (req, res) => {
     userOtp: "",
   });
 
-  const profile = new ProfileModel({
-    userName: userName,
-    fullName: fullName,
-    userBio: "",
-    userSocialLinks: ["", "", ""],
-    profileImageId: "",
-  });
-
   try {
     let userSaveResult = await user.save();
+    const profile = new ProfileModel({
+      userName: userName,
+      userId: userSaveResult._id,
+      fullName: fullName,
+      userBio: "",
+      userSocialLinks: ["", "", ""],
+      profileImageId: "",
+    });
     await profile.save();
     res.send(userSaveResult._id);
   } catch (e) {
@@ -73,7 +73,6 @@ router.post("/loginValidateByUserName", async (req, res) => {
   );
 });
 
-
 router.post("/loginValidateByEmail", async (req, res) => {
   let userLoginData = req.body.userLoginData;
   let userPassword = req.body.userPassword;
@@ -89,7 +88,6 @@ router.post("/loginValidateByEmail", async (req, res) => {
     }
   );
 });
-
 
 router.post("/userInfo", async (req, res) => {
   let userName = req.body.userName;

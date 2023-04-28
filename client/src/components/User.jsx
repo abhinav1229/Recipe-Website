@@ -8,22 +8,23 @@ import Avatar from "react-avatar";
 const User = () => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
-  const [imageInfo, setImageInfo] = useState({});
+  const [profileImageUrl, setProfileImageUrl] = useState("");
 
   let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
   useEffect(() => {
     if (localData) {
-      if (!localData.fullName) {
-        Axios.post(`${BASE_URL}/user/userInfo`, {
-          userName: localData.userName,
+      console.log("ypoo!");
+      if (localData) {
+        Axios.get(`${BASE_URL}/profile/getProfile`, {
+          params: {
+            userName: localData.userName,
+          },
         })
           .then((response) => {
+            console.log(response.data[0]);
             setFullName(response.data[0].fullName);
             setUserName(response.data[0].userName);
-            localStorage.setItem(
-              "userInfo",
-              JSON.stringify({ ...localData, fullName: fullName })
-            );
+            setProfileImageUrl(response.data[0].profileImageUrl);
           })
           .catch((err) => {
             console.log(err);
@@ -36,51 +37,23 @@ const User = () => {
       setFullName("Guest User");
       setUserName("guest");
     }
-  }, [fullName, localData]);
-
-  useEffect(() => {
-    if (localData) {
-      Axios.get(`${BASE_URL}/image/profileImage`, {
-        params: {
-          userName: localData.userName,
-        },
-      })
-        .then((response) => {
-          if (response.data.length) {
-            const base64String = btoa(
-              String.fromCharCode(
-                ...new Uint8Array(response.data[0].img.data.data)
-              )
-            );
-            setImageInfo(base64String);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   }, []);
 
   return (
     <div className="userProfile">
-      {/* {loading ? (
-        <div className="loader-container">
-          <div className="spinner"></div>
-        </div>
-      ) : ( */}
       <>
         <div className="imageContainer">
-          {Object.keys(imageInfo).length !== 0 ? (
-            <img
-              src={`data:image/png;base64,${imageInfo}`}
-              alt={localData.userName}
-            />
+          {profileImageUrl ? (
+            <img src={profileImageUrl} alt={localData.userName} />
           ) : (
             <Avatar name={fullName} size="50" round={true} src="" />
           )}
         </div>
         <div className="userDataContainer">
-          <div className="user"> {fullName.length ? fullName.split(" ")[0] : "..."} </div>
+          <div className="user">
+            {" "}
+            {fullName.length ? fullName.split(" ")[0] : "..."}{" "}
+          </div>
           <div className="username">
             @
             {userName.length ? (

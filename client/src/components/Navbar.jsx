@@ -80,7 +80,10 @@ const Navbar = ({ active }) => {
       )}
 
       {width <= 641 && (
-        <button onClick={() => setNavOpen(!navOpen)} className={localData ? "downToUser": "downToGuest"}>
+        <button
+          onClick={() => setNavOpen(!navOpen)}
+          className={localData ? "downToUser" : "downToGuest"}
+        >
           {navOpen ? (
             <FontAwesomeIcon icon={faX} className="fa-2x icon-hover" />
           ) : (

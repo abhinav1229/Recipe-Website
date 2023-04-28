@@ -18,47 +18,22 @@ const RecipeInfo = (props) => {
     recipeNote,
     recipeSaveTime,
     recipeId,
-    recipeImageId,
     recipeImageUrl,
+    recipeImageUploadUrl,
   } = props;
 
   const [openRating, setOpenRating] = useState(false);
-  const [imageInfo, setImageInfo] = useState({});
 
   // getting userId from the localStorage
   const localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
-
-  useEffect(() => {
-    Axios.get(`${BASE_URL}/image/getImage`, {
-      params: {
-        recipeImageId: recipeImageId,
-      },
-    })
-      .then((response) => {
-        if (response.data !== "EMPTY") {
-          const base64String = btoa(
-            String.fromCharCode(
-              ...new Uint8Array(response.data[0].img.data.data)
-            )
-          );
-          setImageInfo(base64String);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <>
       <div className="RecipeInfo">
         <div className="left">
           <div className="recipeImageContainer">
-            {Object.keys(imageInfo).length !== 0 ? (
-              <img
-                src={`data:image/png;base64,${imageInfo}`}
-                alt={recipeName}
-              />
+            {recipeImageUploadUrl.length !== 0 ? (
+              <img src={recipeImageUploadUrl} alt={recipeName} />
             ) : (
               <img
                 src={recipeImageUrl ? recipeImageUrl : RecipeImage}
@@ -67,7 +42,7 @@ const RecipeInfo = (props) => {
             )}
           </div>
           <RecipeUser userId={userId} recipeSaveTime={recipeSaveTime} />
-          {(localData && localData.userId === userId) ? (
+          {localData && localData.userId === userId ? (
             <div className="editRecipe">
               <NavLink to={"/edit/" + recipeId} className="editButton">
                 Edit

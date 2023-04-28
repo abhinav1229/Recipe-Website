@@ -22,8 +22,8 @@ const EditUser = () => {
   const [twitterURL, setTwitterURL] = useState("");
   const [showRedWarning, setShowRedWaring] = useState(false);
   const [userNameWarningMessage, setUserNameWarningMessage] = useState("");
-  const [profileImageId, setProfileImageId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [profileImageUrl, setProfileImageUrl] = useState("");
 
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ const EditUser = () => {
         setFacebookURL(user.userSocialLinks[0]);
         setInstgramURL(user.userSocialLinks[1]);
         setTwitterURL(user.userSocialLinks[2]);
-        setProfileImageId(user.profileImageId);
+        setProfileImageUrl(user.profileImageId);
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +80,7 @@ const EditUser = () => {
         facebookURL: facebookURL,
         instagramURL: instagramURL,
         twitterURL: twitterURL,
-        profileImageId: profileImageId,
+        profileImageUrl: profileImageUrl,
       })
         .then((response) => {
           // update the image userName with currently updated userName
@@ -108,7 +108,6 @@ const EditUser = () => {
             localData.userName = newUserName;
             localData.fullName = fullName;
             localStorage.setItem("userInfoRecipe", JSON.stringify(localData));
-            // navigate("/");
             navigate(`/aboutuser/${newUserName}`);
           }
         })
@@ -119,19 +118,30 @@ const EditUser = () => {
     setLoading(false);
   }
 
-  function uploadImage(event) {
+  async function handleFileInputChange(event) {
     event.preventDefault();
-    const data = new FormData();
-    data.append("profileImage", event.target.files[0]);
-    data.append("userName", userName);
-    Axios.post(`${BASE_URL}/image/profileImageUpload`, data)
-      .then((response) => {
-        const imageId = response.data._id;
-        setProfileImageId(imageId);
-      })
-      .catch((err) => {
-        console.log(err);
+    const formData = new FormData();
+    formData.append("testImage", event.target.files[0]);
+
+    try {
+      const response = await fetch(`${BASE_URL}/image/photo`, {
+        method: "POST",
+        body: formData,
       });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        // create a URL for the blob and log it to the console
+        console.log(URL.createObjectURL(blob));
+        setProfileImageUrl(URL.createObjectURL(blob));
+        console.log("Profile Image Uploaded");
+      } else {
+        console.log("Image Upload Failed");
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("Image Upload Failed");
+    }
   }
 
   function checkUserName(e) {
@@ -178,8 +188,8 @@ const EditUser = () => {
     e.preventDefault();
 
     // if (e.target.value.split(" ").length <= 30) {
-      setUserBio(e.target.value);
-    // } 
+    setUserBio(e.target.value);
+    // }
   }
 
   return (
@@ -192,23 +202,20 @@ const EditUser = () => {
       ) : (
         <main className="EditUser">
           <form className="formContainer" onSubmit={handleSubmit}>
-            {/* <div className="formGroup">
+            <div className="formGroup">
               <label htmlFor="profileImage">Profile Image</label>
               <p
                 style={{ color: "coral", fontSize: "15px", fontWeight: "200" }}
               >
-                *Image option is disabled due to some technical issue.
+                {/* *Image option is disabled due to some technical issue. */}
               </p>
               <input
                 type="file"
                 id="profileImage"
-                onChange={uploadImage}
-                disabled
+                onChange={handleFileInputChange}
               />
-            </div> */}
-            <div className="formGroup">
-              
             </div>
+            <div className="formGroup"></div>
             <div className="formGroup">
               <label htmlFor="fullName">Full Name</label>
               <input

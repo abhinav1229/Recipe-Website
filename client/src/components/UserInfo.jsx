@@ -19,43 +19,17 @@ import { NavLink } from "react-router-dom";
 const UserInfo = ({ userData, allUserRecipes }) => {
   let localData = JSON.parse(localStorage.getItem("userInfoRecipe"));
 
-  const [imageInfo, setImageInfo] = useState({});
-
-  useEffect(() => {
-    if (localData) {
-      Axios.get(`${BASE_URL}/image/profileImage`, {
-        params: {
-          userName: localData.userName,
-        },
-      })
-        .then((response) => {
-          if (response.data[0]) {
-            const base64String = btoa(
-              String.fromCharCode(
-                ...new Uint8Array(response.data[0].img.data.data)
-              )
-            );
-            setImageInfo(base64String);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
+  console.log(userData);
 
   return (
     <>
       <div className="UserInfo">
         <div className="topSection">
           <div className="left">
-            {Object.keys(imageInfo).length !== 0 ? (
-              <img
-                src={`data:image/png;base64,${imageInfo}`}
-                alt={userData.fullName}
-              />
+            {userData.profileImageUrl &&
+            userData.profileImageUrl.length !== 0 ? (
+              <img src={userData.profileImageUrl} alt={userData.fullName} />
             ) : (
-              // <img src={Profile} alt={localData.userName} />
               <Avatar
                 color={Avatar.getRandomColor("sitebase", [
                   "red",
@@ -135,7 +109,7 @@ const UserInfo = ({ userData, allUserRecipes }) => {
             <span>My Recipes </span>{" "}
           </div>
           <div className="recipeContainerAll">
-            {allUserRecipes.map((recipe, index) => {
+            {/* {allUserRecipes.map((recipe, index) => {
               return (
                 <Recipe
                   key={recipe._id}
@@ -148,7 +122,7 @@ const UserInfo = ({ userData, allUserRecipes }) => {
                   recipeId={recipe._id}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>

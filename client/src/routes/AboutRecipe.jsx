@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import RecipeInfo from "../components/RecipeInfo";
-import {BASE_URL} from "../helper/ref.js";
+import { BASE_URL } from "../helper/ref.js";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -41,7 +41,7 @@ const AboutRecipe = () => {
           recipeDescription={recipe.recipeDescription}
           recipeNote={recipe.recipeNote}
           recipeSaveTime={recipe.recipeSaveTime}
-          recipeImageId={recipe.recipeImageId}
+          recipeImageUploadUrl={recipe.recipeImageUploadUrl}
           recipeImageUrl={recipe.recipeImageUrl}
           recipeId={recipe._id}
         />

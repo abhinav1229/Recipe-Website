@@ -13,12 +13,12 @@ const NewRecipe = (props) => {
   const [recipeIngradients, setRecipeIngradients] = useState("");
   const [recipeDescription, setRecipeDescription] = useState("");
   const [recipeNote, setRecipeNote] = useState("");
-  const [recipeImageUrl, setRecipeImageUrl] = useState("");
   const [loading, setLoading] = useState("");
 
-  // image
-  const [imageId, setImageId] = useState("");
+  // States for image actions
   const [imageUploading, setImageUploading] = useState(false);
+  const [recipeImageUrl, setRecipeImageUrl] = useState("");
+  const [recipeImageUploadUrl, setRecipeImageUploadUrl] = useState("");
 
   if (!isUpdate && Object.keys(props).length) {
     setIsUpdate(true);
@@ -26,8 +26,7 @@ const NewRecipe = (props) => {
     setRecipeIngradients(props.data.recipeIngradients);
     setRecipeDescription(props.data.recipeDescription);
     setRecipeNote(props.data.recipeNote);
-    setImageId(props.data.recipeImageId);
-    setRecipeImageUrl(props.data.recipeImageUrl)
+    setRecipeImageUrl(props.data.recipeImageUrl);
     setImageUploading(true);
   }
 
@@ -45,8 +44,8 @@ const NewRecipe = (props) => {
           recipeIngradients: recipeIngradients,
           recipeDescription: recipeDescription,
           recipeNote: recipeNote,
-          recipeImageId: imageId,
           recipeImageUrl: recipeImageUrl,
+          recipeImageUploadUrl: recipeImageUploadUrl,
         })
           .then((response) => {
             setLoading(false);
@@ -63,8 +62,8 @@ const NewRecipe = (props) => {
           recipeIngradients: recipeIngradients,
           recipeDescription: recipeDescription,
           recipeNote: recipeNote,
-          recipeImageId: imageId,
           recipeImageUrl: recipeImageUrl,
+          recipeImageUploadUrl: recipeImageUploadUrl,
         })
           .then((response) => {
             setLoading(false);
@@ -80,25 +79,33 @@ const NewRecipe = (props) => {
     }
   }
 
-  const onSelectFile = (event) => {
-    const data = new FormData();
-    data.append("testImage", event.target.files[0]);
-    data.append("userName", user.userName);
-
+  async function handleFileInputChange(event) {
+    event.preventDefault();
     setImageUploading(true);
+    const formData = new FormData();
+    formData.append("testImage", event.target.files[0]);
 
-    console.log(data);
-
-    Axios.post(`${BASE_URL}/image/imageUpload`, data)
-      .then((response) => {
-        console.log(response);
-        setImageId(response.data._id);
-        setImageUploading(false);
-      })
-      .catch((err) => {
-        setImageUploading(false);
+    try {
+      const response = await fetch(`${BASE_URL}/image/photo`, {
+        method: "POST",
+        body: formData,
       });
-  };
+
+      if (response.ok) {
+        const blob = await response.blob();
+        // create a URL for the blob and log it to the console
+        console.log(URL.createObjectURL(blob));
+        setRecipeImageUploadUrl(URL.createObjectURL(blob));
+        console.log("Image Uploaded");
+        setImageUploading(false);
+      } else {
+        console.log("Image Upload Failed");
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("Image Upload Failed");
+    }
+  }
 
   return (
     <div className="newRecipe">
@@ -134,24 +141,24 @@ const NewRecipe = (props) => {
           <div className="right">
             <div
               className={
-                imageId ? "fileContainer fileUploaded" : "fileContainer"
+                recipeImageUploadUrl
+                  ? "fileContainer fileUploaded"
+                  : "fileContainer"
               }
             >
               <div>
-                {imageId && !imageUploading
+                {recipeImageUploadUrl
                   ? "Image Uploaded!"
-                  : imageUploading && isUpdate
-                  ? "Add New Image"
-                  : imageUploading && !isUpdate
+                  : imageUploading
                   ? "Uploading..."
                   : "Add Recipe Image"}
               </div>
-              <input type="file" name="file" onChange={onSelectFile} disabled />
+              <input type="file" name="file" onChange={handleFileInputChange} />
               <i>(upload .png, .jpg, .jpeg image)</i>
               <p
                 style={{ color: "coral", fontSize: "15px", fontWeight: "200" }}
               >
-                *Upload option is disabled due to some technical issue.
+                {/* *Upload option is disabled due to some technical issue. */}
               </p>
             </div>
             <p style={{ color: "white" }}>- OR -</p>

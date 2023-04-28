@@ -25,13 +25,14 @@ const RecipeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  recipeImageId: {
-    type: String,
-  },
   recipeImageUrl: {
     type: String,
     required: false,
-  }
+  },
+  recipeImageUploadUrl: {
+    type: String,
+    required: false,
+  },
 });
 
 const Recipe = mongoose.model("recipes", RecipeSchema);

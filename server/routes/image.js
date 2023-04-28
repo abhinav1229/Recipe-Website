@@ -5,77 +5,39 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const ImageModel = require("../Db/recipeimage");
 const ProfileImageModel = require("../Db/profileimage");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+const { MongoClient, GridFSBucket } = require("mongodb");
 
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5000000,
-  },
-  fileFilter: function (req, file, cb) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-      return cb(new Error("Only JPG, JPEG, and PNG files are allowed"));
-    }
-    cb(null, true);
-  },
-});
+require("dotenv").config();
+const databaseUrl = process.env.DATABASE_URL;
 
-router.post("/imageUpload", upload.single("testImage"), (req, res) => {
-  const fileName = req.file.filename;
-  const userName = req.body.userName;
-
-  console.log(req.file);
-
-  const extension = path.extname(fileName);
-
-  const contentType = (() => {
-    switch (extension) {
-      case ".jpg":
-      case ".jpeg":
-        return "image/jpeg";
-      case ".png":
-        return "image/png";
-      default:
-        return "application/octet-stream";
-    }
-  })();
-
-  const saveImage = new ImageModel({
-    img: {
-      data: fs.readFileSync("./uploads/" + fileName),
-      contentType: contentType,
-    },
-  });
-
-  saveImage
-    .save()
-    .then((response) => {
-      // this code will delete the file which you have uploaded from the server/uploads folder.
-      // but do upload on the database.
-      fs.unlink("./uploads/" + fileName, (err) => {
-        if (err) {
-          throw err;
-        }
+const upload = multer({ dest: "uploads/" });
+router.post("/photo", upload.single("testImage"), async (req, res) => {
+  try {
+    const client = await MongoClient.connect(databaseUrl);
+    const db = client.db("recipeapp2");
+    const bucket = new GridFSBucket(db);
+    const uploadStream = bucket.openUploadStream(req.file.originalname);
+    const readStream = fs.createReadStream(req.file.path);
+    readStream.pipe(uploadStream);
+    uploadStream.on("finish", () => {
+      fs.unlink(req.file.path, () => {
+        // retrieve the saved file from GridFSBucket and send it as a response
+        const downloadStream = bucket.openDownloadStreamByName(
+          req.file.originalname
+        );
+        res.set("Content-Type", req.file.mimetype);
+        downloadStream.pipe(res);
+        downloadStream.on("end", () => {
+          client.close();
+        });
       });
-      res.send("OK");
-    })
-    .catch((err) => {
-      res.send("error to save");
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.post(
@@ -134,18 +96,18 @@ router.post(
 
 router.get("/getImage", async (req, res) => {
   let recipeImageId = req.query.recipeImageId;
-  if(recipeImageId) {
+  if (recipeImageId) {
     let result = await ImageModel.find({
       _id: recipeImageId,
     });
 
-    try{
+    try {
       res.send(result);
-    } catch(e) {
+    } catch (e) {
       res.send(e);
     }
   } else {
-    res.send('EMPTY');
+    res.send("EMPTY");
   }
 });
 

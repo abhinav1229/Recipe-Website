@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/recipe.css";
 import "../styles/recipeUser.css";
 import { NavLink } from "react-router-dom";
-import Axios from "axios";
-import { BASE_URL } from "../helper/ref.js";
 
 import RecipeImage from "../helper/recipe.jpg";
 
@@ -12,42 +10,19 @@ const Recipe = (props) => {
     recipeName,
     recipeDescription,
     recipeId,
-    recipeImageId,
     recipeImageUrl,
+    recipeImageUploadUrl,
   } = props;
-  const [imageInfo, setImageInfo] = useState({});
 
-  useEffect(() => {
-    Axios.get(`${BASE_URL}/image/getImage`, {
-      params: {
-        recipeImageId: recipeImageId,
-      },
-    })
-      .then((response) => {
-        if (response.data !== "EMPTY") {
-          const base64String = btoa(
-            String.fromCharCode(
-              ...new Uint8Array(response.data[0].img.data.data)
-            )
-          );
-          setImageInfo(base64String);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [recipeImageId]);
+  console.log("😛: ", recipeImageUploadUrl);
 
   return (
     <div className="recipeContainer">
       <NavLink to={"/aboutrecipe/" + recipeId}>
         <div className="recipe">
           <div className="imgContainer">
-            {Object.keys(imageInfo).length !== 0 ? (
-              <img
-                src={`data:image/png;base64,${imageInfo}`}
-                alt={recipeName}
-              />
+            {recipeImageUploadUrl.length !== 0 ? (
+              <img src={recipeImageUploadUrl} alt={recipeName} />
             ) : (
               <img
                 src={recipeImageUrl ? recipeImageUrl : RecipeImage}
